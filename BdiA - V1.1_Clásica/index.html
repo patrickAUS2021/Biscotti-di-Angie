@@ -1,0 +1,1050 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Biscotti di Angi | Pastelería Artesanal</title>
+    <meta name="description" content="Tortas artesanales, cupcakes, cookies, boxes de regalo y productos personalizados con la estética clásica de nuestro local.">
+    <meta name="theme-color" content="#d88194">
+
+    <!-- Google Fonts: Playfair Display para elegancia clásica y Plus Jakarta Sans para legibilidad -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- CSS Integrado con la Paleta de Colores del Local Real (Rosa Viejo, Blanco Cálido, Madera) -->
+    <style>
+        :root {
+            --primary: #563d2e;
+            --primary-light: #7a5843;
+            --primary-dark: #3b281d;
+            --accent: #d88194;          /* Rosa viejo / empolvado del local */
+            --accent-soft: #f7ecee;     /* Versión muy suave para fondos delicados */
+            --bg-cream: #fcfbf9;        /* Blanco cálido / marfil de paredes */
+            --bg-white: #ffffff;
+            --text-dark: #2b2b2b;
+            --text-muted: #6e645e;
+            --shadow-sm: 0 4px 6px -1px rgba(86, 61, 46, 0.05), 0 2px 4px -1px rgba(86, 61, 46, 0.03);
+            --shadow-md: 0 10px 15px -3px rgba(86, 61, 46, 0.08), 0 4px 6px -2px rgba(86, 61, 46, 0.04);
+            --shadow-lg: 0 20px 25px -5px rgba(86, 61, 46, 0.12), 0 10px 10px -5px rgba(86, 61, 46, 0.04);
+            --radius-sm: 8px;
+            --radius-md: 16px;
+            --radius-lg: 24px;
+            --radius-full: 9999px;
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        /* Reset & Base */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: var(--bg-cream);
+            color: var(--text-dark);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, h4, .logo {
+            font-family: 'Playfair Display', serif;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+            transition: var(--transition);
+        }
+
+        button {
+            cursor: pointer;
+            border: none;
+            outline: none;
+            background: none;
+            font-family: inherit;
+        }
+
+        img, video {
+            max-width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        /* HEADER & NAV */
+        .header {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background-color: rgba(252, 251, 249, 0.92);
+            backdrop-filter: blur(12px);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1.2rem 5%;
+            box-shadow: var(--shadow-sm);
+            border-bottom: 1px solid rgba(216, 129, 148, 0.15);
+        }
+
+        .logo {
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: var(--primary);
+            letter-spacing: -0.5px;
+        }
+
+        .main-nav {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .main-nav a {
+            font-weight: 500;
+            font-size: 0.95rem;
+            color: var(--text-dark);
+            position: relative;
+        }
+
+        .main-nav a::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--accent);
+            transition: var(--transition);
+            border-radius: 2px;
+        }
+
+        .main-nav a:hover::after {
+            width: 100%;
+        }
+
+        .cart-button {
+            background-color: var(--accent);
+            color: white;
+            padding: 0.6rem 1.2rem;
+            border-radius: var(--radius-full);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-weight: 600;
+            font-size: 0.95rem;
+            box-shadow: var(--shadow-sm);
+            transition: var(--transition);
+        }
+
+        .cart-button:hover {
+            background-color: #c46d80;
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+
+        #cartCount {
+            background-color: white;
+            color: var(--accent);
+            font-size: 0.8rem;
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+        }
+
+        /* HERO SECTION */
+        .hero {
+            position: relative;
+            min-height: 85vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            overflow: hidden;
+            padding: 2rem 1rem;
+        }
+
+        .hero-video {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            min-width: 100%;
+            min-height: 100%;
+            width: auto;
+            height: auto;
+            z-index: -2;
+            transform: translate(-50%, -50%);
+            object-fit: cover;
+        }
+
+        .hero-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(180deg, rgba(59, 40, 29, 0.65) 0%, rgba(216, 129, 148, 0.55) 100%);
+            z-index: -1;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            z-index: 1;
+            padding: 0 1rem;
+            animation: fadeIn 1s ease-out;
+        }
+
+        .hero-content h1 {
+            font-size: 3.5rem;
+            line-height: 1.15;
+            margin-bottom: 1.2rem;
+            font-weight: 700;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .hero-content p {
+            font-size: 1.25rem;
+            margin-bottom: 2rem;
+            font-weight: 300;
+            opacity: 0.95;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .hero-actions {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 0.9rem 2rem;
+            border-radius: var(--radius-full);
+            font-weight: 600;
+            font-size: 1rem;
+            transition: var(--transition);
+            text-align: center;
+        }
+
+        .btn-primary {
+            background-color: var(--accent);
+            color: white;
+            box-shadow: var(--shadow-md);
+        }
+
+        .btn-primary:hover {
+            background-color: #c46d80;
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .btn-secondary {
+            background-color: rgba(255, 255, 255, 0.15);
+            color: white;
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .btn-secondary:hover {
+            background-color: rgba(255, 255, 255, 0.25);
+            transform: translateY(-2px);
+        }
+
+        /* SECTIONS GENERAL */
+        section {
+            padding: 5rem 5%;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 3.5rem;
+        }
+
+        .section-header span {
+            color: var(--accent);
+            text-transform: uppercase;
+            font-size: 0.85rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+            display: block;
+            margin-bottom: 0.5rem;
+            background-color: var(--accent-soft);
+            width: fit-content;
+            margin-left: auto;
+            margin-right: auto;
+            padding: 0.3rem 1rem;
+            border-radius: var(--radius-full);
+        }
+
+        .section-header h2 {
+            font-size: 2.5rem;
+            color: var(--primary);
+            position: relative;
+        }
+
+        /* DESTACADOS */
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .featured-card {
+            background: var(--bg-white);
+            border-radius: var(--radius-md);
+            overflow: hidden;
+            box-shadow: var(--shadow-sm);
+            transition: var(--transition);
+            border: 1px solid rgba(216, 129, 148, 0.15);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .featured-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .featured-card img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+        }
+
+        .card-content {
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+        }
+
+        .card-content h3 {
+            font-size: 1.3rem;
+            color: var(--primary-dark);
+            margin-bottom: 0.4rem;
+        }
+
+        .card-content p {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+
+        .card-content strong {
+            font-size: 1.4rem;
+            color: var(--accent);
+            margin-top: auto;
+        }
+
+        /* PROMOCIONES */
+        .promotions {
+            background-color: var(--accent-soft);
+            border-radius: var(--radius-lg);
+            margin: 0 5%;
+            padding: 4rem 3rem;
+        }
+
+        .promo-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .promo-card {
+            background: white;
+            padding: 2.5rem 2rem;
+            border-radius: var(--radius-md);
+            text-align: center;
+            border: 2px dashed var(--accent);
+            position: relative;
+            box-shadow: var(--shadow-sm);
+            transition: var(--transition);
+        }
+
+        .promo-card:hover {
+            transform: scale(1.02);
+            box-shadow: var(--shadow-md);
+        }
+
+        .promo-card h3 {
+            color: var(--primary);
+            font-size: 1.5rem;
+            margin-bottom: 0.8rem;
+        }
+
+        .promo-card p {
+            color: var(--text-muted);
+            margin-bottom: 1.5rem;
+        }
+
+        .promo-card strong {
+            display: block;
+            font-size: 1.8rem;
+            color: var(--accent);
+        }
+
+        /* CATEGORÍAS Y CATALOGO */
+        .categories {
+            padding-bottom: 1rem;
+        }
+
+        .category-container {
+            display: flex;
+            justify-content: center;
+            gap: 0.8rem;
+            flex-wrap: wrap;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .category-container button {
+            padding: 0.7rem 1.5rem;
+            border-radius: var(--radius-full);
+            background-color: var(--bg-white);
+            color: var(--text-dark);
+            border: 1px solid rgba(216, 129, 148, 0.2);
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: var(--transition);
+        }
+
+        .category-container button:hover,
+        .category-container button.active {
+            background-color: var(--accent);
+            color: white;
+            border-color: var(--accent);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .product-card {
+            background: white;
+            border-radius: var(--radius-md);
+            overflow: hidden;
+            box-shadow: var(--shadow-sm);
+            transition: var(--transition);
+            display: flex;
+            flex-direction: column;
+            border: 1px solid rgba(216, 129, 148, 0.15);
+        }
+
+        .product-card:hover {
+            box-shadow: var(--shadow-md);
+            transform: translateY(-4px);
+        }
+
+        .product-img-wrapper {
+            position: relative;
+            height: 200px;
+            overflow: hidden;
+        }
+
+        .product-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: var(--transition);
+        }
+
+        .product-card:hover img {
+            transform: scale(1.05);
+        }
+
+        .product-info {
+            padding: 1.2rem;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+        }
+
+        .product-title {
+            font-size: 1.15rem;
+            color: var(--primary-dark);
+            margin-bottom: 0.4rem;
+        }
+
+        .product-desc {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-bottom: 1rem;
+            flex-grow: 1;
+        }
+
+        .product-bottom {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-top: auto;
+        }
+
+        .product-price {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--accent);
+        }
+
+        .add-to-cart-btn {
+            background-color: var(--accent-soft);
+            color: var(--accent);
+            padding: 0.5rem 1rem;
+            border-radius: var(--radius-full);
+            font-weight: 600;
+            font-size: 0.85rem;
+            transition: var(--transition);
+        }
+
+        .add-to-cart-btn:hover {
+            background-color: var(--accent);
+            color: white;
+        }
+
+        /* CÓMO COMPRAR */
+        .how-to-buy {
+            background-color: white;
+        }
+
+        .steps-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 2rem;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .step {
+            text-align: center;
+            padding: 2rem 1.5rem;
+            background-color: var(--bg-cream);
+            border-radius: var(--radius-md);
+            position: relative;
+            transition: var(--transition);
+            border: 1px solid rgba(216, 129, 148, 0.1);
+        }
+
+        .step:hover {
+            transform: translateY(-5px);
+        }
+
+        .step span {
+            width: 50px;
+            height: 50px;
+            background-color: var(--accent);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.4rem;
+            font-weight: 700;
+            font-family: 'Playfair Display', serif;
+            margin: 0 auto 1.2rem;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .step h3 {
+            font-size: 1.15rem;
+            color: var(--primary-dark);
+        }
+
+        /* CONTACTO */
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 1.5rem;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .contact-grid article {
+            background: white;
+            padding: 2rem 1.5rem;
+            border-radius: var(--radius-md);
+            text-align: center;
+            box-shadow: var(--shadow-sm);
+            border: 1px solid rgba(216, 129, 148, 0.15);
+            transition: var(--transition);
+        }
+
+        .contact-grid article:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .contact-grid h3 {
+            color: var(--accent);
+            margin-bottom: 0.5rem;
+            font-size: 1.2rem;
+        }
+
+        .contact-grid p {
+            color: var(--text-muted);
+            font-weight: 500;
+        }
+
+        /* MODAL CARRITO */
+        .cart-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(4px);
+            z-index: 1000;
+            display: flex;
+            justify-content: flex-end;
+            opacity: 0;
+            visibility: hidden;
+            transition: var(--transition);
+        }
+
+        .cart-modal.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .cart-content {
+            background: white;
+            width: 100%;
+            max-width: 450px;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            padding: 2rem;
+            box-shadow: var(--shadow-lg);
+            transform: translateX(100%);
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            overflow-y: auto;
+        }
+
+        .cart-modal.active .cart-content {
+            transform: translateX(0);
+        }
+
+        .cart-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .cart-header h2 {
+            color: var(--primary);
+            font-size: 1.8rem;
+        }
+
+        .close-cart-btn {
+            font-size: 1.5rem;
+            color: var(--text-muted);
+            line-height: 1;
+        }
+
+        .cart-items-list {
+            flex-grow: 1;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .cart-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid #f5f5f5;
+        }
+
+        .cart-item img {
+            width: 60px;
+            height: 60px;
+            border-radius: var(--radius-sm);
+            object-fit: cover;
+        }
+
+        .cart-item-details {
+            flex-grow: 1;
+        }
+
+        .cart-item-details h4 {
+            font-size: 0.95rem;
+            color: var(--primary-dark);
+        }
+
+        .cart-item-details p {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        .cart-item-remove {
+            color: #d9534f;
+            font-size: 0.85rem;
+            background: none;
+            border: none;
+            cursor: pointer;
+        }
+
+        .cart-total-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--primary);
+            padding: 1rem 0;
+            border-top: 2px solid var(--bg-cream);
+        }
+
+        .checkout-container {
+            margin-top: 1rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .checkout-container label {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--primary-dark);
+        }
+
+        .checkout-container select {
+            width: 100%;
+            padding: 0.8rem;
+            border-radius: var(--radius-sm);
+            border: 1px solid #ddd;
+            font-family: inherit;
+            font-size: 0.95rem;
+            outline: none;
+        }
+
+        .checkout-button {
+            background-color: var(--accent);
+            color: white;
+            padding: 1rem;
+            border-radius: var(--radius-full);
+            font-weight: 700;
+            font-size: 1rem;
+            width: 100%;
+            transition: var(--transition);
+        }
+
+        .checkout-button:hover {
+            background-color: #c46d80;
+        }
+
+        .empty-cart-msg {
+            text-align: center;
+            color: var(--text-muted);
+            margin: auto 0;
+            font-style: italic;
+        }
+
+        /* Toast Notification */
+        .toast {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: var(--primary);
+            color: white;
+            padding: 0.8rem 1.5rem;
+            border-radius: var(--radius-full);
+            box-shadow: var(--shadow-lg);
+            z-index: 2000;
+            transform: translateY(100px);
+            opacity: 0;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        .toast.show {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        /* FOOTER */
+        .footer {
+            background-color: var(--primary-dark);
+            color: rgba(255, 255, 255, 0.8);
+            padding: 4rem 5% 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 2rem;
+            border-top: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .footer h3 {
+            color: white;
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .footer a {
+            color: var(--accent);
+            margin-left: 1rem;
+            font-weight: 500;
+        }
+
+        .footer a:hover {
+            text-decoration: underline;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @media (max-width: 768px) {
+            .header { padding: 1rem; }
+            .main-nav { display: none; }
+            .hero-content h1 { font-size: 2.2rem; }
+            .hero-content p { font-size: 1rem; }
+            section { padding: 3.5rem 1.5rem; }
+            .promotions { margin: 0; padding: 2.5rem 1.5rem; }
+            .footer { flex-direction: column; text-align: center; }
+            .footer a { margin: 0 0.5rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- HEADER -->
+    <header class="header">
+        <div class="logo-container">
+            <a href="#" class="logo">Biscotti di Angi</a>
+        </div>
+        <nav class="main-nav">
+            <a href="#inicio">Inicio</a>
+            <a href="#destacados">Destacados</a>
+            <a href="#promociones">Promociones</a>
+            <a href="#productos">Catálogo</a>
+            <a href="#como-comprar">Cómo Comprar</a>
+            <a href="#contacto">Contacto</a>
+        </nav>
+        <button class="cart-button" id="openCartButton">
+            🛒 Carrito <span id="cartCount">0</span>
+        </button>
+    </header>
+
+    <!-- HERO -->
+    <section id="inicio" class="hero">
+        <video id="heroVideo" class="hero-video" autoplay muted playsinline poster="https://images.unsplash.com/photo-1578985545062-69928b1d9587?auto=format&fit=crop&w=1200&q=80">
+            <source id="videoSource" src="assets/video/video1.mp4" type="video/mp4">
+        </video>
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+            <h1>Tradición y sabor artesanal en cada detalle</h1>
+            <p>Inspirado en la calidez de nuestro local. Descubrí recetas clásicas elaboradas con ingredientes seleccionados.</p>
+            <div class="hero-actions">
+                <a href="#productos" class="btn btn-primary">Ver Productos</a>
+                <a href="#como-comprar" class="btn btn-secondary">Cómo Comprar</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- DESTACADOS -->
+    <section id="destacados" class="featured">
+        <div class="section-header">
+            <span>Selección de la semana</span>
+            <h2>Productos Destacados</h2>
+        </div>
+        <div class="card-grid">
+            <article class="featured-card">
+                <img src="https://images.unsplash.com/photo-1565958011703-44f9829ba187?auto=format&fit=crop&w=600&q=80" alt="Torta Oreo Premium" onerror="this.src='https://placehold.co/600x400/d88194/ffffff?text=Torta+Oreo'">
+                <div class="card-content">
+                    <h3>Torta Oreo Clásica</h3>
+                    <p>12 porciones</p>
+                    <strong>$ 35.000</strong>
+                </div>
+            </article>
+            <article class="featured-card">
+                <img src="https://images.unsplash.com/photo-1606890737304-57a1ca8a5b62?auto=format&fit=crop&w=600&q=80" alt="Torta Chocolate" onerror="this.src='https://placehold.co/600x400/d88194/ffffff?text=Torta+Chocolate'">
+                <div class="card-content">
+                    <h3>Torta Húmeda de Chocolate</h3>
+                    <p>15 porciones</p>
+                    <strong>$ 42.000</strong>
+                </div>
+            </article>
+            <article class="featured-card">
+                <img src="https://images.unsplash.com/photo-1558961363-fa8fdf82db35?auto=format&fit=crop&w=600&q=80" alt="Box regalo" onerror="this.src='https://placehold.co/600x400/d88194/ffffff?text=Box+Regalo'">
+                <div class="card-content">
+                    <h3>Box Degustación Clásica</h3>
+                    <p>Edición especial</p>
+                    <strong>$ 18.000</strong>
+                </div>
+            </article>
+        </div>
+    </section>
+
+    <!-- PROMOCIONES -->
+    <section id="promociones" class="promotions">
+        <div class="section-header">
+            <span>Beneficios vigentes</span>
+            <h2>Combos Especiales</h2>
+        </div>
+        <div class="promo-grid">
+            <article class="promo-card">
+                <h3>Combo Celebración</h3>
+                <p>Torta clásica + Pack de Cupcakes</p>
+                <strong>$ 62.000</strong>
+            </article>
+            <article class="promo-card">
+                <h3>Tea Time Box</h3>
+                <p>Cookies artesanales + Alfajores + Brownies</p>
+                <strong>$ 17.500</strong>
+            </article>
+        </div>
+    </section>
+
+    <!-- CATEGORÍAS -->
+    <section class="categories">
+        <div class="section-header">
+            <span>Explorá nuestro catálogo</span>
+            <h2>Categorías</h2>
+        </div>
+        <div class="category-container" id="categoryContainer">
+            <button class="active" data-category="Todos">Todos</button>
+            <button data-category="Tortas">Tortas</button>
+            <button data-category="Cookies">Cookies</button>
+            <button data-category="Cupcakes">Cupcakes</button>
+            <button data-category="Alfajores">Alfajores</button>
+            <button data-category="Boxes">Boxes</button>
+        </div>
+    </section>
+
+    <!-- PRODUCTOS -->
+    <section id="productos" class="products">
+        <div class="section-header">
+            <span>Nuestros productos</span>
+            <h2>Catálogo General</h2>
+        </div>
+        <div id="productsGrid" class="products-grid">
+            <!-- JS GENERARÁ PRODUCTOS -->
+        </div>
+    </section>
+
+    <!-- COMO COMPRAR -->
+    <section id="como-comprar" class="how-to-buy">
+        <div class="section-header">
+            <span>Fácil y rápido</span>
+            <h2>Cómo realizar un pedido</h2>
+        </div>
+        <div class="steps-container">
+            <div class="step">
+                <span>1</span>
+                <h3>Elegí productos</h3>
+            </div>
+            <div class="step">
+                <span>2</span>
+                <h3>Agregalos al carrito</h3>
+            </div>
+            <div class="step">
+                <span>3</span>
+                <h3>Elegí un medio de pago</h3>
+            </div>
+            <div class="step">
+                <span>4</span>
+                <h3>Confirmá la compra</h3>
+            </div>
+        </div>
+    </section>
+
+    <!-- CONTACTO -->
+    <section id="contacto" class="contact">
+        <div class="section-header">
+            <span>Te esperamos en el local</span>
+            <h2>Contacto</h2>
+        </div>
+        <div class="contact-grid">
+            <article>
+                <h3>WhatsApp</h3>
+                <p>+54 9 299 123 4567</p>
+            </article>
+            <article>
+                <h3>Instagram</h3>
+                <p>@biscottidiangi</p>
+            </article>
+            <article>
+                <h3>Teléfono</h3>
+                <p>+54 299 444 5555</p>
+            </article>
+            <article>
+                <h3>Dirección</h3>
+                <p>Neuquén Capital</p>
+            </article>
+        </div>
+    </section>
+
+    <!-- MODAL CARRITO -->
+    <div id="cartModal" class="cart-modal">
+        <div class="cart-content">
+            <div class="cart-header">
+                <h2>Mi Pedido</h2>
+                <button class="close-cart-btn" id="closeCartButton">&times;</button>
+            </div>
+            <div class="cart-items-list" id="cartItemsList">
+                <!-- Se poblará vía Javascript -->
+            </div>
+            <div class="cart-total-container">
+                <span>Total</span>
+                <span id="cartTotal">$0</span>
+            </div>
+            <div class="checkout-container">
+                <label for="paymentMethod">Medio de Pago</label>
+                <select id="paymentMethod">
+                    <option value="Efectivo">Efectivo</option>
+                    <option value="Transferencia">Transferencia</option>
+                    <option value="QR">QR / Mercado Pago</option>
+                    <option value="Tarjeta Débito">Tarjeta Débito</option>
+                    <option value="Tarjeta Crédito">Tarjeta Crédito</option>
+                </select>
+                <button id="checkoutButton" class="checkout-button">Finalizar Compra</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Notification Toast -->
+    <div id="toast" class="toast">Producto agregado al carrito</div>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div>
+            <h3>Biscotti di Angi</h3>
+            <p>Pastelería artesanal y encargos personalizados con estilo clásico.</p>
+        </div>
+        <div>
+            <a href="#">Instagram</a>
+            <a href="#">WhatsApp</a>
+        </div>
+    </footer>
+
+    <script src="app.js"></script>
+</body>
+</html>

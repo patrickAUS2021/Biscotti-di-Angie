@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Biscotti di Angie | Tortas Artesanales</title>
+    <meta name="description" content="Tortas artesanales, cupcakes, cookies, boxes de regalo y productos personalizados.">
+    <meta name="theme-color" content="#563d2e">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <!-- NAVEGACIÓN PRINCIPAL -->
+    <header class="header">
+        <div class="logo-container">
+            <a href="#" class="logo">Biscotti di Angie</a>
+        </div>
+        <nav class="main-nav">
+            <a href="#inicio">Inicio</a>
+            <a href="#destacados">Destacados</a>
+            <a href="#promociones">Promociones</a>
+            <a href="#productos">Productos</a>
+            <a href="#como-comprar">Cómo comprar</a>
+            <a href="#contacto">Contacto</a>
+        </nav>
+        <button id="cartIcon" class="cart-icon-btn">🛒 <span id="cartCount">0</span></button>
+    </header>
+
+    <main>
+        <!-- HERO / VIDEO PRINCIPAL -->
+        <section id="inicio" class="hero">
+            <video autoplay muted loop playsinline class="hero-video">
+                <source src="assets/video/hero.mp4" type="video/mp4">
+            </video>
+            <div class="hero-overlay">
+                <h1>Tortas artesanales que crean momentos inolvidables</h1>
+                <p>Diseños personalizados, ingredientes de calidad y sabores que sorprenden.</p>
+                <div class="hero-buttons">
+                    <a href="#productos" class="btn btn-primary">Ver Productos</a>
+                    <a href="#como-comprar" class="btn btn-secondary">Cómo Comprar</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- PRODUCTOS DESTACADOS -->
+        <section id="destacados" class="container">
+            <p class="section-subtitle">Favoritos de la semana</p>
+            <h2 class="section-title">Productos Destacados</h2>
+            
+            <div class="products-grid">
+                <article class="product-card">
+                    <img src="assets/images/torta-oreo.jpg" alt="Torta Oreo Premium">
+                    <div class="product-info">
+                        <h3 class="product-title">Torta Oreo Premium</h3>
+                        <p class="product-desc">12 porciones</p>
+                        <p class="product-price">$ 35.000</p>
+                        <button class="btn btn-add" onclick="agregarAlCarrito('Torta Oreo Premium', 35000)">Agregar al pedido</button>
+                    </div>
+                </article>
+
+                <article class="product-card">
+                    <img src="assets/images/torta-chocolate.jpg" alt="Torta Chocolate Belga">
+                    <div class="product-info">
+                        <h3 class="product-title">Torta Chocolate Belga</h3>
+                        <p class="product-desc">15 porciones</p>
+                        <p class="product-price">$ 42.000</p>
+                        <button class="btn btn-add" onclick="agregarAlCarrito('Torta Chocolate Belga', 42000)">Agregar al pedido</button>
+                    </div>
+                </article>
+
+                <article class="product-card">
+                    <img src="assets/images/box-regalo.jpg" alt="Box Regalo Deluxe">
+                    <div class="product-info">
+                        <h3 class="product-title">Box Regalo Deluxe</h3>
+                        <p class="product-desc">Edición especial</p>
+                        <p class="product-price">$ 18.000</p>
+                        <button class="btn btn-add" onclick="agregarAlCarrito('Box Regalo Deluxe', 18000)">Agregar al pedido</button>
+                    </div>
+                </article>
+            </div>
+        </section>
+
+        <!-- PROMOCIONES Y COMBOS (CON FOTOS PRESENTABLES) -->
+        <section id="promociones" class="container">
+            <p class="section-subtitle">Promociones vigentes</p>
+            <h2 class="section-title">Combos Especiales</h2>
+            
+            <div class="promos-grid">
+                <article class="promo-card">
+                    <img src="assets/images/torta-chocolate.jpg" alt="Combo Cumpleaños">
+                    <div class="promo-content">
+                        <span class="badge">Ahorrá 15%</span>
+                        <h3>Combo Cumpleaños</h3>
+                        <p>Torta + Cupcakes + Decoración</p>
+                        <span class="promo-price">$ 62.000</span>
+                        <button class="btn btn-add" onclick="agregarAlCarrito('Combo Cumpleaños', 62000)">Agregar Combo</button>
+                    </div>
+                </article>
+
+                <article class="promo-card">
+                    <img src="assets/images/box-regalo.jpg" alt="Sweet Box">
+                    <div class="promo-content">
+                        <span class="badge">Popular</span>
+                        <h3>Sweet Box</h3>
+                        <p>Cookies + Alfajores + Brownies</p>
+                        <span class="promo-price">$ 17.500</span>
+                        <button class="btn btn-add" onclick="agregarAlCarrito('Sweet Box', 17500)">Agregar Combo</button>
+                    </div>
+                </article>
+            </div>
+        </section>
+
+        <!-- CATÁLOGO COMPLETO Y FILTROS -->
+        <section id="productos" class="container">
+            <p class="section-subtitle">Explorá nuestro catálogo</p>
+            <h2 class="section-title">Nuestros Productos</h2>
+
+            <!-- FILTROS ESTILIZADOS -->
+            <div class="category-filters">
+                <button class="filter-btn active" data-category="todos">Todos</button>
+                <button class="filter-btn" data-category="tortas">Tortas</button>
+                <button class="filter-btn" data-category="cookies">Cookies</button>
+                <button class="filter-btn" data-category="cupcakes">Cupcakes</button>
+                <button class="filter-btn" data-category="alfajores">Alfajores</button>
+                <button class="filter-btn" data-category="boxes">Boxes</button>
+            </div>
+
+            <div id="catalogGrid" class="products-grid">
+                <!-- PRODUCTO CON FOTO -->
+                <article class="product-card" data-category="alfajores">
+                    <img src="assets/images/alfajores.jpg" alt="Alfajores Artesanales x6">
+                    <div class="product-info">
+                        <h3 class="product-title">Alfajores Artesanales x6</h3>
+                        <p class="product-desc">Caja de 6 u.</p>
+                        <p class="product-price">$ 12.000</p>
+                        <button class="btn btn-add" onclick="agregarAlCarrito('Alfajores Artesanales x6', 12000)">Agregar al pedido</button>
+                    </div>
+                </article>
+
+                <!-- PRODUCTO CON VIDEO CORTO -->
+                <article class="product-card" data-category="tortas">
+                    <div class="card-media-container">
+                        <video autoplay muted loop playsinline class="card-video">
+                            <source src="assets/video/hero.mp4" type="video/mp4">
+                        </video>
+                        <span class="badge-video">🎥 Video Demo</span>
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-title">Especial Artesanal (Showcase)</h3>
+                        <p class="product-desc">Edición artesanal en vivo</p>
+                        <p class="product-price">$ 28.000</p>
+                        <button class="btn btn-add" onclick="agregarAlCarrito('Especial Artesanal', 28000)">Agregar al pedido</button>
+                    </div>
+                </article>
+
+                <article class="product-card" data-category="cookies">
+                    <img src="assets/images/cookies.jpg" alt="Cookies Choco Chip x6">
+                    <div class="product-info">
+                        <h3 class="product-title">Cookies Choco Chip x6</h3>
+                        <p class="product-desc">Caja de 6 u.</p>
+                        <p class="product-price">$ 10.500</p>
+                        <button class="btn btn-add" onclick="agregarAlCarrito('Cookies Choco Chip x6', 10500)">Agregar al pedido</button>
+                    </div>
+                </article>
+
+                <article class="product-card" data-category="cupcakes">
+                    <img src="assets/images/cupcakes.jpg" alt="Cupcakes Surtidos x4">
+                    <div class="product-info">
+                        <h3 class="product-title">Cupcakes Surtidos x4</h3>
+                        <p class="product-desc">Caja de 4 u.</p>
+                        <p class="product-price">$ 14.000</p>
+                        <button class="btn btn-add" onclick="agregarAlCarrito('Cupcakes Surtidos x4', 14000)">Agregar al pedido</button>
+                    </div>
+                </article>
+            </div>
+        </section>
+
+        <!-- CÓMO COMPRAR (CUADROS MINIMALISTAS) -->
+        <section id="como-comprar" class="container info-section">
+            <h2 class="section-title text-center">Cómo Comprar</h2>
+            <div class="steps-grid">
+                <div class="step-card">
+                    <div class="step-icon">1</div>
+                    <h3>Elegí tus productos</h3>
+                    <p>Agregá las tortas o boxes que más te gusten al carrito de compras.</p>
+                </div>
+                <div class="step-card">
+                    <div class="step-icon">2</div>
+                    <h3>Confirmá el pedido</h3>
+                    <p>Revisá el detalle de tu carrito y elegí el método de pago que prefieras.</p>
+                </div>
+                <div class="step-card">
+                    <div class="step-icon">3</div>
+                    <h3>Coordiná por WhatsApp</h3>
+                    <p>Enviamos el detalle directamente al chat de WhatsApp para definir entrega.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- CONTACTO (ESTILIZADO MINIMALISTA) -->
+        <section id="contacto" class="container contact-section">
+            <div class="contact-card">
+                <h2>¿Tenés una consulta especial?</h2>
+                <p>Hacemos pedidos personalizados para cumpleaños, casamientos y eventos corporativos.</p>
+                <a href="https://wa.me/?text=Hola!%20Quisiera%20consultar%20por%20un%20pedido%20especial" target="_blank" class="btn btn-primary btn-whatsapp">💬 Contactar por WhatsApp</a>
+            </div>
+        </section>
+    </main>
+
+    <!-- MODAL CARRITO DE COMPRAS (OCULTO HASTA HACER CLIC) -->
+    <div id="cartModal" class="cart-modal">
+        <div class="cart-content">
+            <div class="cart-header">
+                <h2>Tu Pedido</h2>
+                <button id="closeCartBtn" class="close-btn">&times;</button>
+            </div>
+            
+            <div id="cartItems" class="cart-items-list">
+                <p class="empty-cart-msg">Tu carrito está vacío.</p>
+            </div>
+
+            <div class="cart-footer">
+                <div class="cart-total-container">
+                    <span>Total:</span>
+                    <span id="cartTotal">$ 0</span>
+                </div>
+                <div class="checkout-container">
+                    <label for="paymentMethod"><strong>Medio de pago:</strong></label>
+                    <select id="paymentMethod" class="custom-select">
+                        <option value="Efectivo / Transferencia">Efectivo / Transferencia (10% OFF)</option>
+                        <option value="Mercado Pago">Mercado Pago</option>
+                    </select>
+                    <button id="checkoutBtn" class="checkout-button">Finalizar por WhatsApp</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
