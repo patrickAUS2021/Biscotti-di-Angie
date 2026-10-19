@@ -12,7 +12,10 @@
 
 ### 2. Versión Clásica (V1.1)
 - **GitHub:** /BdiA - V1.1_Clásica
-- **Hosting:** Firebase Hosting
+- **Hosting:** Netlify / Vercel / Firebase Hosting
+  - NETLIFY --> https://biscotti-di-angi-v02.netlify.app/
+  - VERCEL --->
+  - FIREBASE ->   
 - **Base de Datos:** Firebase Firestore / MySQL (Dev)
 - **URL:** https://clasica.biscottidiangie.com (aún no registrada)
 
