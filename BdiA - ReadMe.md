@@ -21,7 +21,8 @@
 
 ### 3. Versión Ampliada (V1.2)
 - **GitHub:** /BdiA - V1.2_Ampliada
-- **Hosting:** Firebase Hosting
+- **Hosting:** Netlify / Vercel / Firebase Hosting
+  -   
 - **Base de Datos:** Firebase Firestore / MySQL (Dev)
 - **URL:** https://ampliada.biscottidiangi.com (aún no registrada)
 
