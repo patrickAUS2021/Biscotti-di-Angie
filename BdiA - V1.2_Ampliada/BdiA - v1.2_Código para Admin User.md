@@ -1,3 +1,5 @@
+# Código para vista de Dasboard:
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
