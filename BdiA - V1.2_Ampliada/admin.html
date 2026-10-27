@@ -1,0 +1,1424 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard Admin | Biscotti di Angie</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Font: Playfair Display & Plus Jakarta Sans -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            rose: '#FDF0F0',
+                            roseDark: '#F7D6D8',
+                            pink: '#E8A0BF',
+                            cream: '#FFFDF9',
+                            gold: '#D4AF37',
+                            brown: '#4A3525',
+                            text: '#2C1810',
+                            accent: '#BA7A92'
+                        }
+                    },
+                    fontFamily: {
+                        serif: ['"Playfair Display"', 'serif'],
+                        sans: ['"Plus Jakarta Sans"', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: #FAF6F0;
+            color: #2C1810;
+        }
+        .sidebar-item.active {
+            background-color: #E8A0BF;
+            color: #ffffff;
+            font-weight: 600;
+            box-shadow: 0 4px 12px rgba(232, 160, 191, 0.35);
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 6px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #E8A0BF;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body class="h-screen flex overflow-hidden">
+
+    <!-- SIDEBAR NAVEGABLE -->
+    <aside class="w-64 bg-white border-r border-rose-100 flex flex-col justify-between z-20 shadow-sm">
+        <div>
+            <!-- Branding Header -->
+            <div class="p-6 border-b border-rose-50 flex items-center gap-3">
+                <div class="w-10 h-10 rounded-full bg-brand-roseDark flex items-center justify-center text-brand-brown font-serif text-xl font-bold shadow-sm">
+                    B
+                </div>
+                <div>
+                    <h1 class="font-serif font-bold text-lg text-brand-brown leading-tight">Biscotti di Angie</h1>
+                    <span class="text-xs text-brand-accent font-medium tracking-wide">Panel de Control v2.1</span>
+                </div>
+            </div>
+
+            <!-- Navegación de Módulos -->
+            <nav class="p-4 space-y-1.5 custom-scrollbar overflow-y-auto max-h-[calc(100vh-160px)]">
+                <a href="#" onclick="switchTab('inicio')" id="nav-inicio" class="sidebar-item active flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium text-gray-700 hover:bg-brand-rose transition-all">
+                    <i class="fa-solid fa-chart-line w-5 text-center"></i>
+                    <span>Inicio / Resumen</span>
+                </a>
+                <a href="#" onclick="switchTab('productos')" id="nav-productos" class="sidebar-item flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium text-gray-700 hover:bg-brand-rose transition-all">
+                    <i class="fa-solid fa-cookie-bite w-5 text-center"></i>
+                    <span>Productos</span>
+                </a>
+                <a href="#" onclick="switchTab('pos')" id="nav-pos" class="sidebar-item flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium text-gray-700 hover:bg-brand-rose transition-all">
+                    <i class="fa-solid fa-cash-register w-5 text-center"></i>
+                    <span>Punto de Venta</span>
+                </a>
+                <a href="#" onclick="switchTab('pedidos')" id="nav-pedidos" class="sidebar-item flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium text-gray-700 hover:bg-brand-rose transition-all">
+                    <i class="fa-solid fa-clipboard-list w-5 text-center"></i>
+                    <span>Pedidos</span>
+                </a>
+                <a href="#" onclick="switchTab('clientes')" id="nav-clientes" class="sidebar-item flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium text-gray-700 hover:bg-brand-rose transition-all">
+                    <i class="fa-solid fa-users w-5 text-center"></i>
+                    <span>Clientes</span>
+                </a>
+                <a href="#" onclick="switchTab('pagos')" id="nav-pagos" class="sidebar-item flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium text-gray-700 hover:bg-brand-rose transition-all">
+                    <i class="fa-solid fa-wallet w-5 text-center"></i>
+                    <span>Pagos y Señas</span>
+                </a>
+                <a href="#" onclick="switchTab('reportes')" id="nav-reportes" class="sidebar-item flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium text-gray-700 hover:bg-brand-rose transition-all">
+                    <i class="fa-solid fa-chart-pie w-5 text-center"></i>
+                    <span>Reportes</span>
+                </a>
+                <a href="#" onclick="switchTab('integraciones')" id="nav-integraciones" class="sidebar-item flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium text-gray-700 hover:bg-brand-rose transition-all">
+                    <i class="fa-solid fa-plug w-5 text-center"></i>
+                    <span>Centro de Integraciones</span>
+                </a>
+            </nav>
+        </div>
+
+        <!-- Footer Admin Status -->
+        <div class="p-4 border-t border-rose-50 bg-brand-rose/40 flex items-center gap-3">
+            <div class="w-8 h-8 rounded-full bg-brand-pink text-white flex items-center justify-center font-bold text-xs">
+                AD
+            </div>
+            <div class="text-xs">
+                <p class="font-bold text-brand-brown">Angie (Admin)</p>
+                <p class="text-emerald-600 flex items-center gap-1 font-medium"><span class="w-2 h-2 rounded-full bg-emerald-500 inline-block"></span> En línea</p>
+            </div>
+        </div>
+    </aside>
+
+    <!-- ÁREA PRINCIPAL CONTENT -->
+    <div class="flex-1 flex flex-col min-w-0 overflow-hidden">
+
+        <!-- HEADER SUPERIOR -->
+        <header class="bg-white border-b border-rose-100 h-16 px-8 flex items-center justify-between shadow-sm z-10">
+            <div class="flex items-center gap-4">
+                <h2 id="page-title" class="text-xl font-serif font-bold text-brand-brown">Inicio y Métricas del Día</h2>
+                <span class="text-xs bg-brand-rose px-2.5 py-1 rounded-full text-brand-accent font-semibold">Neuquén Capital</span>
+            </div>
+
+            <div class="flex items-center gap-4">
+                <!-- Botón integración Tienda Cliente corregido a ./index.html -->
+                <button onclick="window.open('https://biscotti-di-angi-v02.netlify.app/', '_blank')" class="flex items-center gap-2 bg-gradient-to-r from-brand-pink to-brand-accent text-white px-4 py-2 rounded-xl text-xs font-bold hover:opacity-90 transition-all shadow-sm cursor-pointer">
+                   <i class="fa-solid fa-globe"></i>
+                   <span>Ver Tienda Online (Producción)</span>
+                </button>
+            </div>
+        </header>
+
+        <!-- CONTENIDO DINÁMICO DE PESTAÑAS -->
+        <main class="flex-1 overflow-y-auto p-8 custom-scrollbar">
+
+            <!-- 1. MÓDULO INICIO -->
+            <section id="tab-inicio" class="tab-content space-y-6">
+                <!-- SOLICITUD A: Filtro por Sucursal/POS -->
+                <div class="bg-white p-4 rounded-2xl border border-rose-100 flex items-center justify-between shadow-sm">
+                    <div class="flex items-center gap-3 text-sm font-bold text-brand-brown">
+                        <i class="fa-solid fa-store text-brand-pink"></i>
+                        <span>Filtrar Información por Sucursal / POS:</span>
+                    </div>
+                    <select id="branch-select" class="px-4 py-2 border border-rose-200 rounded-xl text-sm bg-white text-brand-brown font-medium outline-none focus:border-brand-pink shadow-sm cursor-pointer" onchange="filterDashboardData()">   
+                        <option value="all">🌐 Todas las Sucursales (Consolidado)</option>
+    
+                        <optgroup label="Neuquén Centro">
+                               <option value="POS 1 - Mostrador Centro">POS 1 - Mostrador Centro</option>
+                        </optgroup>
+
+                        <optgroup label="Neuquén Este">
+                            <option value="POS 2 - Mostrador Este">POS 2 - Mostrador Este</option>
+                        </optgroup>
+
+                        <optgroup label="Neuquén Oeste">
+                            <option value="POS 3 - Mostrador Oeste">POS 3 - Mostrador Oeste</option>
+                        </optgroup>
+
+                        <optgroup label="Alto Comahue Shopping">
+                            <option value="POS 4 - Stand Shopping">POS 4 - Stand Shopping</option>
+                        </optgroup>
+                    </select>
+                </div>
+
+                <!-- Tarjetas KPI -->
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-5">
+                    <div class="bg-white p-5 rounded-2xl border border-rose-100 shadow-sm flex items-center justify-between">
+                        <div>
+                            <p class="text-xs font-bold uppercase text-gray-400 tracking-wider">Ventas de Hoy</p>
+                            <h3 class="text-2xl font-bold text-brand-brown mt-1">$148.500</h3>
+                            <span class="text-xs text-emerald-600 font-semibold">+18% vs ayer</span>
+                        </div>
+                        <div class="w-12 h-12 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center text-xl">
+                            <i class="fa-solid fa-money-bill-wave"></i>
+                        </div>
+                    </div>
+
+                    <div class="bg-white p-5 rounded-2xl border border-rose-100 shadow-sm flex items-center justify-between">
+                        <div>
+                            <p class="text-xs font-bold uppercase text-gray-400 tracking-wider">Pedidos Pendientes</p>
+                            <h3 class="text-2xl font-bold text-brand-brown mt-1">7 Encargos</h3>
+                            <span class="text-xs text-amber-600 font-semibold">3 para entregar hoy</span>
+                        </div>
+                        <div class="w-12 h-12 rounded-xl bg-amber-50 text-amber-600 flex items-center justify-center text-xl">
+                            <i class="fa-solid fa-clock"></i>
+                        </div>
+                    </div>
+
+                    <div class="bg-white p-5 rounded-2xl border border-rose-100 shadow-sm flex items-center justify-between">
+                        <div>
+                            <p class="text-xs font-bold uppercase text-gray-400 tracking-wider">Consultas WhatsApp</p>
+                            <h3 class="text-2xl font-bold text-brand-brown mt-1">12 Mensajes</h3>
+                            <span class="text-xs text-emerald-600 font-semibold">Bot Meta Activo</span>
+                        </div>
+                        <div class="w-12 h-12 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center text-xl">
+                            <i class="fa-brands fa-whatsapp"></i>
+                        </div>
+                    </div>
+
+                    <div class="bg-white p-5 rounded-2xl border border-rose-100 shadow-sm flex items-center justify-between">
+                        <div>
+                            <p class="text-xs font-bold uppercase text-gray-400 tracking-wider">Catálogo Activo</p>
+                            <h3 id="total-products-count" class="text-2xl font-bold text-brand-brown mt-1">0</h3>
+                            <span class="text-xs text-brand-accent font-semibold">Productos sincronizados</span>
+                        </div>
+                        <div class="w-12 h-12 rounded-xl bg-brand-rose text-brand-pink flex items-center justify-center text-xl">
+                            <i class="fa-solid fa-cake-candles"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Actividad Reciente & Resumen Operativo -->
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                    <div class="lg:col-span-2 bg-white p-6 rounded-2xl border border-rose-100 shadow-sm">
+                        <h3 class="font-serif font-bold text-lg text-brand-brown mb-4">Pedidos para Entregar Hoy</h3>
+                        <div class="space-y-3">
+                            <div class="flex items-center justify-between p-3.5 rounded-xl bg-brand-rose/30 border border-rose-100">
+                                <div class="flex items-center gap-3">
+                                    <div class="w-10 h-10 rounded-full bg-brand-pink text-white flex items-center justify-center font-bold text-xs">
+                                        ML
+                                    </div>
+                                    <div>
+                                        <p class="font-bold text-sm text-brand-brown">María Laura - Red Velvet Especial</p>
+                                        <p class="text-xs text-gray-500">Retiro por local • 17:30 hs</p>
+                                    </div>
+                                </div>
+                                <span class="px-3 py-1 bg-amber-100 text-amber-800 rounded-full text-xs font-semibold">En preparación</span>
+                            </div>
+                            <div class="flex items-center justify-between p-3.5 rounded-xl bg-brand-rose/30 border border-rose-100">
+                                <div class="flex items-center gap-3">
+                                    <div class="w-10 h-10 rounded-full bg-brand-accent text-white flex items-center justify-center font-bold text-xs">
+                                        CP
+                                    </div>
+                                    <div>
+                                        <p class="font-bold text-sm text-brand-brown">Carlos Pérez - Box Cookies x12</p>
+                                        <p class="text-xs text-gray-500">Envío a domicilio • 19:00 hs</p>
+                                    </div>
+                                </div>
+                                <span class="px-3 py-1 bg-emerald-100 text-emerald-800 rounded-full text-xs font-semibold">Listo</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-white p-6 rounded-2xl border border-rose-100 shadow-sm">
+                        <h3 class="font-serif font-bold text-lg text-brand-brown mb-4">Accesos Rápidos</h3>
+                        <div class="space-y-3">
+                            <button onclick="switchTab('productos')" class="w-full text-left p-3 rounded-xl bg-brand-rose/40 hover:bg-brand-rose text-brand-brown font-semibold text-sm transition-all flex items-center justify-between">
+                                <span><i class="fa-solid fa-plus mr-2 text-brand-pink"></i> Cargar Nuevo Producto</span>
+                                <i class="fa-solid fa-chevron-right text-xs"></i>
+                            </button>
+                            <button onclick="switchTab('pos')" class="w-full text-left p-3 rounded-xl bg-brand-rose/40 hover:bg-brand-rose text-brand-brown font-semibold text-sm transition-all flex items-center justify-between">
+                                <span><i class="fa-solid fa-cash-register mr-2 text-brand-pink"></i> Nueva Venta Mostrador</span>
+                                <i class="fa-solid fa-chevron-right text-xs"></i>
+                            </button>
+                            <button onclick="switchTab('integraciones')" class="w-full text-left p-3 rounded-xl bg-brand-rose/40 hover:bg-brand-rose text-brand-brown font-semibold text-sm transition-all flex items-center justify-between">
+                                <span><i class="fa-brands fa-whatsapp mr-2 text-emerald-600"></i> Ver Mensajes WhatsApp</span>
+                                <i class="fa-solid fa-chevron-right text-xs"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 2. MÓDULO PRODUCTOS (SOLICITUD B: Soporte de Fotos y Videos Cortos) -->
+            <section id="tab-productos" class="tab-content hidden space-y-6">
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                    
+                    <!-- Formulario de Creación de Producto / Multimedia -->
+                    <div class="bg-white p-6 rounded-2xl border border-rose-100 shadow-sm h-fit">
+                        <h3 class="font-serif font-bold text-lg text-brand-brown mb-1">Cargar Nuevo Producto / Recurso</h3>
+                        <p class="text-xs text-gray-500 mb-5">Agregá productos con fotos o videos cortos (Reels/TikTok) al catálogo.</p>
+
+                        <form id="product-form" onsubmit="handleProductSubmit(event)" class="space-y-4">
+                            <div>
+                                <label class="block text-xs font-bold uppercase text-gray-600 mb-1">Nombre del Producto *</label>
+                                <input type="text" id="prod-name" required placeholder="Ej. Alfajores de Maizena" class="w-full px-3.5 py-2.5 rounded-xl border border-gray-200 text-sm focus:outline-none focus:border-brand-pink">
+                            </div>
+
+                            <div class="grid grid-cols-2 gap-3">
+                                <div>
+                                    <label class="block text-xs font-bold uppercase text-gray-600 mb-1">Categoría *</label>
+                                    <select id="prod-category" required class="w-full px-3.5 py-2.5 rounded-xl border border-gray-200 text-sm focus:outline-none focus:border-brand-pink">
+                                        <option value="Tortas">Tortas</option>
+                                        <option value="Tartas">Tartas</option>
+                                        <option value="Cookies">Cookies</option>
+                                        <option value="Alfajores">Alfajores</option>
+                                        <option value="Cupcakes">Cupcakes</option>
+                                        <option value="Box de regalo">Box de regalo</option>
+                                        <option value="Otros">Otros</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-bold uppercase text-gray-600 mb-1">Precio ($) *</label>
+                                    <input type="number" id="prod-price" required placeholder="1500" class="w-full px-3.5 py-2.5 rounded-xl border border-gray-200 text-sm focus:outline-none focus:border-brand-pink">
+                                </div>
+                            </div>
+
+                            <div>
+                                <label class="block text-xs font-bold uppercase text-gray-600 mb-1">Descripción</label>
+                                <textarea id="prod-desc" rows="2" placeholder="Detalles, ingredientes o porciones..." class="w-full px-3.5 py-2.5 rounded-xl border border-gray-200 text-sm focus:outline-none focus:border-brand-pink"></textarea>
+                            </div>
+
+                            <div>
+                                <label class="block text-xs font-bold uppercase text-gray-600 mb-1">Tipo de Archivo Multimedia *</label>
+                                <div class="flex gap-4 mb-2 text-xs font-semibold text-gray-600">
+                                    <label class="flex items-center gap-1.5 cursor-pointer"><input type="radio" name="media-type" value="image" checked onchange="updateAcceptType()"> Imagen (JPG/PNG)</label>
+                                    <label class="flex items-center gap-1.5 cursor-pointer"><input type="radio" name="media-type" value="video" onchange="updateAcceptType()"> Video Corto (MP4)</label>
+                                </div>
+                                <input type="file" id="prod-image" accept="image/*" onchange="previewMedia(event)" class="w-full text-xs text-gray-500 file:mr-3 file:py-2 file:px-4 file:rounded-xl file:border-0 file:text-xs file:font-semibold file:bg-brand-rose file:text-brand-brown hover:file:bg-brand-roseDark">
+                                
+                                <!-- Contenedor Vista Previa Adaptativo -->
+                                <div id="media-preview-container" class="mt-3 hidden">
+                                    <img id="image-preview" src="" alt="Vista previa" class="w-full h-36 object-cover rounded-xl border border-rose-100 hidden">
+                                    <video id="video-preview" src="" controls class="w-full h-36 object-cover rounded-xl border border-rose-100 hidden"></video>
+                                </div>
+                            </div>
+
+                            <button type="button" onclick="handleProductSubmit(event)" class="w-full py-3 bg-brand-pink text-white font-bold rounded-xl hover:bg-brand-accent transition-all shadow-sm">
+                                   Guardar Producto en Catálogo
+                            </button>
+                        </form>
+                  
+                        <!-- Selector de Carga Masiva (CSV / TXT) -->
+                            <div class="mt-6 p-4 border border-dashed border-rose-200 rounded-xl bg-brand-light/50">
+                                <h3 class="font-bold text-sm text-brand-brown mb-2">Carga Masiva de Catálogo (CSV / TXT)</h3>
+                                <input type="file" id="bulk-file-input" accept=".csv, .txt" class="text-xs text-gray-500 mb-2 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-xs file:font-semibold file:bg-brand-pink file:text-white hover:file:bg-brand-dark transition-all">
+                                <button onclick="processBulkUpload()" class="w-full py-2 bg-brand-pink text-white rounded-xl text-xs font-bold hover:bg-brand-dark transition-all">
+                                Importar Catálogo Masivo
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Tabla del Catálogo Dinámico -->
+                    <div class="lg:col-span-2 bg-white p-6 rounded-2xl border border-rose-100 shadow-sm flex flex-col justify-between">
+                        <div>
+                            <div class="flex items-center justify-between mb-4">
+                                <div>
+                                    <h3 class="font-serif font-bold text-lg text-brand-brown">Catálogo de Productos</h3>
+                                    <p class="text-xs text-gray-500">Gestión en tiempo real sincronizada con <code class="bg-gray-100 px-1 py-0.5 rounded text-brand-pink">localStorage</code></p>
+                                </div>
+                                <button onclick="resetToSeedData()" class="text-xs text-gray-500 underline hover:text-brand-pink">
+                                    Restaurar Datos por Defecto
+                                </button>
+                            </div>
+
+                            <div class="overflow-x-auto">
+                                <table class="w-full text-left text-sm text-gray-600">
+                                    <thead class="bg-brand-rose/40 text-xs font-bold uppercase text-brand-brown">
+                                        <tr>
+                                            <th class="p-3 rounded-l-xl">Recurso</th>
+                                            <th class="p-3">Producto</th>
+                                            <th class="p-3">Categoría</th>
+                                            <th class="p-3">Precio</th>
+                                            <th class="p-3">Estado</th>
+                                            <th class="p-3 rounded-r-xl text-right">Acciones</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="products-table-body" class="divide-y divide-rose-50">
+                                        <!-- Renderizado dinámico por JS -->
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </section>
+
+            <!-- 3. MÓDULO PUNTO DE VENTA (SOLICITUD C: Multi-POS, Creación de POS, Carga Omnicanal y Estado Manual) -->
+            <section id="tab-pos" class="tab-content hidden space-y-6">
+                <!-- Selector y Alta de Puntos de Venta -->
+                <div class="bg-white p-4 rounded-2xl border border-rose-100 flex items-center justify-between shadow-sm">
+                    <div class="flex items-center gap-3">
+                        <label class="text-xs font-bold uppercase text-gray-600">Punto de Venta / Caja Activa:</label>
+                        <select id="pos-branch-select" class="px-3 py-2 rounded-xl border border-gray-200 text-xs font-semibold bg-brand-cream">
+                            <option value="POS 1 - Mostrador Centro">POS 1 - Mostrador Centro</option>
+                            <option value="POS 2 - Mostrador Este">POS 2 - Mostrador Este</option>
+                            <option value="POS 3 - Mostrador Oeste">POS 3 - Mostrador Oeste</option>
+                            <option value="POS 4 - Stand Shopping">POS 4 - Stand Shopping</option>
+                        </select>
+                    </div>
+                    <button onclick="createNewPos()" class="px-3 py-2 bg-brand-rose text-brand-brown font-bold text-xs rounded-xl hover:bg-brand-roseDark transition-all">
+                        <i class="fa-solid fa-plus mr-1"></i> Crear Nuevo POS / Caja
+                    </button>
+                    <button onclick="manageOrDeletePos()" class="px-3 py-2 bg-rose-100 text-rose-700 font-bold text-xs rounded-xl hover:bg-rose-200 transition-all flex items-center gap-1">
+                        <i class="fa-solid fa-trash-can"></i> Gestionar / Borrar POS
+                    </button>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                    <!-- Selector de Productos para la Venta -->
+                    <div class="lg:col-span-2 bg-white p-6 rounded-2xl border border-rose-100 shadow-sm">
+                        <h3 class="font-serif font-bold text-lg text-brand-brown mb-4">Mostrador - Selección de Productos</h3>
+                        <div id="pos-products-grid" class="grid grid-cols-2 sm:grid-cols-3 gap-4 max-h-[500px] overflow-y-auto custom-scrollbar p-1">
+                            <!-- Cargado dinámicamente -->
+                        </div>
+                    </div>
+
+                    <!-- Ticket de Venta & Carga Omnicanal (Mail/WhatsApp) -->
+                    <div class="bg-white p-6 rounded-2xl border border-rose-100 shadow-sm flex flex-col justify-between">
+                        <div>
+                            <h3 class="font-serif font-bold text-lg text-brand-brown border-b border-rose-100 pb-3 mb-4">Ticket / Alta de Pedido</h3>
+                            
+                            <!-- Canal de Origen (WhatsApp / Mail / Mostrador) -->
+                            <div class="mb-4 space-y-2">
+                                <label class="block text-xs font-bold uppercase text-gray-600">Canal de Origen</label>
+                                <select id="pos-origin-channel" class="w-full px-3 py-2 rounded-xl border border-gray-200 text-xs">
+                                    <option value="Mostrador">Venta Mostrador (Presencial)</option>
+                                    <option value="WhatsApp">WhatsApp (Mensajería)</option>
+                                    <option value="Email">Email / Correo Electrónico</option>
+                                    <option value="Instagram">Instagram DM</option>
+                                </select>
+                            </div>
+
+                            <div id="pos-cart-items" class="space-y-3 max-h-48 overflow-y-auto custom-scrollbar">
+                                <p class="text-xs text-gray-400 text-center py-6">Selecciona productos para agregar a la venta.</p>
+                            </div>
+                        </div>
+
+                        <div class="border-t border-rose-100 pt-4 mt-4">
+                            <div class="flex justify-between font-bold text-lg text-brand-brown mb-3">
+                                <span>Total:</span>
+                                <span id="pos-total-price">$0</span>
+                            </div>
+
+                            <div class="space-y-2">
+                                <label class="block text-xs font-bold uppercase text-gray-600">Medio de Pago</label>
+                                <select id="pos-payment-method" class="w-full px-3 py-2 rounded-xl border border-gray-200 text-sm">
+                                    <option value="Efectivo">Efectivo</option>
+                                    <option value="Transferencia">Transferencia Bancaria</option>
+                                    <option value="MercadoPago">MercadoPago / QR</option>
+                                    <option value="Tarjeta">Tarjeta de Débito/Crédito</option>
+                                </select>
+                            </div>
+
+                            <button onclick="processPosSale()" class="w-full mt-4 py-3 bg-emerald-600 text-white font-bold rounded-xl hover:bg-emerald-700 transition-all shadow-sm">
+                                Registrar Pedido / Venta POS
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 4. MÓDULO PEDIDOS (SOLICITUD C: Cambio Manual de Estado) -->
+            <section id="tab-pedidos" class="tab-content hidden space-y-6">
+                <div class="bg-white p-6 rounded-2xl border border-rose-100 shadow-sm">
+                    <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6">
+                        <div>
+                            <h3 class="font-serif font-bold text-lg text-brand-brown">Ciclo de Vida de Pedidos</h3>
+                            <p class="text-xs text-gray-500">Gestión omnicanal con cambio manual de estados</p>
+                        </div>
+                        <div class="flex gap-2">
+                            <select id="filter-channel" class="px-3 py-2 rounded-xl border border-gray-200 text-xs font-semibold">
+                                <option value="TODOS">Todos los Canales</option>
+                                <option value="WhatsApp">WhatsApp</option>
+                                <option value="Email">Email</option>
+                                <option value="Instagram">Instagram</option>
+                                <option value="Mostrador">Mostrador</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-left text-sm text-gray-600">
+                            <thead class="bg-brand-rose/40 text-xs font-bold uppercase text-brand-brown">
+                                <tr>
+                                    <th class="p-3 rounded-l-xl">ID</th>
+                                    <th class="p-3">Cliente</th>
+                                    <th class="p-3">Detalle Pedido</th>
+                                    <th class="p-3">Canal</th>
+                                    <th class="p-3">Fecha Entrega</th>
+                                    <th class="p-3">Estado Actual</th>
+                                    <th class="p-3 rounded-r-xl">Cambiar Estado Manual</th>
+                                </tr>
+                            </thead>
+                            <tbody id="orders-table-body" class="divide-y divide-rose-50">
+                                <tr>
+                                    <td class="p-3 font-bold text-brand-brown">#ORD-1024</td>
+                                    <td class="p-3">María Laura (299-4123456)</td>
+                                    <td class="p-3">Red Velvet + Topper Cumpleaños</td>
+                                    <td class="p-3"><span class="px-2 py-1 bg-emerald-100 text-emerald-800 rounded-full text-xs font-semibold">WhatsApp</span></td>
+                                    <td class="p-3 text-xs">Hoy - 17:30 hs</td>
+                                    <td class="p-3" id="status-1024"><span class="px-2.5 py-1 bg-amber-100 text-amber-800 rounded-full text-xs font-semibold">En preparación</span></td>
+                                    <td class="p-3">
+                                        <select onchange="updateOrderStatusManual('1024', this.value)" class="text-xs px-2 py-1 rounded-lg border border-gray-200 font-bold bg-white">
+                                            <option value="Pendiente">Pendiente de revisión</option>
+                                            <option value="Confirmado">Confirmado</option>
+                                            <option value="En preparación" selected>En preparación</option>
+                                            <option value="Listo para entrega">Listo para entrega</option>
+                                            <option value="Entregado">Entregado</option>
+                                            <option value="Cancelado">Cancelado</option>
+                                        </select>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="p-3 font-bold text-brand-brown">#ORD-1025</td>
+                                    <td class="p-3">Carlos Pérez (299-5987654)</td>
+                                    <td class="p-3">Box Cookies x12 Decoradas</td>
+                                    <td class="p-3"><span class="px-2 py-1 bg-pink-100 text-pink-800 rounded-full text-xs font-semibold">Instagram</span></td>
+                                    <td class="p-3 text-xs">Mañana - 11:00 hs</td>
+                                    <td class="p-3" id="status-1025"><span class="px-2.5 py-1 bg-blue-100 text-blue-800 rounded-full text-xs font-semibold">Confirmado</span></td>
+                                    <td class="p-3">
+                                        <select onchange="updateOrderStatusManual('1025', this.value)" class="text-xs px-2 py-1 rounded-lg border border-gray-200 font-bold bg-white">
+                                            <option value="Pendiente">Pendiente de revisión</option>
+                                            <option value="Confirmado" selected>Confirmado</option>
+                                            <option value="En preparación">En preparación</option>
+                                            <option value="Listo para entrega">Listo para entrega</option>
+                                            <option value="Entregado">Entregado</option>
+                                            <option value="Cancelado">Cancelado</option>
+                                        </select>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 5. MÓDULO CLIENTES (SOLICITUD D: Carga de Clientes con Campos Mandatorios y Opcionales v2.1) -->
+            <section id="tab-clientes" class="tab-content hidden space-y-6">
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                    <!-- Formulario Nuevo Cliente -->
+                    <div class="bg-white p-6 rounded-2xl border border-rose-100 shadow-sm h-fit">
+                        <h3 class="font-serif font-bold text-lg text-brand-brown mb-1">Registrar Nuevo Cliente</h3>
+                        <p class="text-xs text-gray-500 mb-4">Definición v2.1 con datos obligatorios y opcionales.</p>
+
+                        <form id="client-form" onsubmit="handleClientSubmit(event)" class="space-y-3">
+                            <div>
+                                <label class="block text-xs font-bold uppercase text-gray-600 mb-1">Nombre / Razón Social * (Mandatorio)</label>
+                                <input type="text" id="cli-name" required placeholder="Nombre completo" class="w-full px-3.5 py-2 rounded-xl border border-gray-200 text-xs focus:outline-none focus:border-brand-pink">
+                            </div>
+
+                            <div>
+                                <label class="block text-xs font-bold uppercase text-gray-600 mb-1">Teléfono / WhatsApp (Req. para WhatsApp)</label>
+                                <input type="text" id="cli-phone" placeholder="+54 9 299 XXX-XXXX" class="w-full px-3.5 py-2 rounded-xl border border-gray-200 text-xs focus:outline-none focus:border-brand-pink">
+                            </div>
+
+                            <div class="grid grid-cols-2 gap-2">
+                                <div>
+                                    <label class="block text-xs font-bold uppercase text-gray-600 mb-1">Email (Opcional)</label>
+                                    <input type="email" id="cli-email" placeholder="email@dominio.com" class="w-full px-3 py-2 rounded-xl border border-gray-200 text-xs focus:outline-none focus:border-brand-pink">
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-bold uppercase text-gray-600 mb-1">Instagram (Opcional)</label>
+                                    <input type="text" id="cli-ig" placeholder="@usuario" class="w-full px-3 py-2 rounded-xl border border-gray-200 text-xs focus:outline-none focus:border-brand-pink">
+                                </div>
+                            </div>
+
+                            <div>
+                                <label class="block text-xs font-bold uppercase text-gray-600 mb-1">Dirección / Observaciones (Opcional)</label>
+                                <textarea id="cli-obs" rows="2" placeholder="Dirección de entrega o notas personales..." class="w-full px-3.5 py-2 rounded-xl border border-gray-200 text-xs focus:outline-none focus:border-brand-pink"></textarea>
+                            </div>
+
+                            <button type="submit" class="w-full py-2.5 bg-brand-pink text-white font-bold rounded-xl hover:bg-brand-accent transition-all text-xs shadow-sm">
+                                Guardar Cliente
+                            </button>
+                        </form>
+                    </div>
+
+                    <!-- Directorio de Clientes -->
+                    <div class="lg:col-span-2 bg-white p-6 rounded-2xl border border-rose-100 shadow-sm">
+                        <h3 class="font-serif font-bold text-lg text-brand-brown mb-4">Directorio Único de Clientes</h3>
+                        <div id="clients-directory-grid" class="grid grid-cols-1 md:grid-cols-2 gap-4 max-h-[500px] overflow-y-auto custom-scrollbar pr-1">
+                            <!-- Inyectado por JS -->
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 6. MÓDULO PAGOS Y SEÑAS (SOLICITUD E: Totales, Subtotales, Señas y Filtros) -->
+            <section id="tab-pagos" class="tab-content hidden space-y-6">
+                <div class="bg-white p-6 rounded-2xl border border-rose-100 shadow-sm space-y-4">
+                    <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+                        <div>
+                            <h3 class="font-serif font-bold text-lg text-brand-brown">Gestión Financiera: Pagos, Señas y Saldos</h3>
+                            <p class="text-xs text-gray-500">Visualización de pagos parciales, saldos pendientes y totales</p>
+                        </div>
+                        <input type="text" id="payments-search" onkeyup="filterPayments()" placeholder="🔍 Filtrar por cliente, pedido o estado..." class="px-3.5 py-2 rounded-xl border border-gray-200 text-xs w-full md:w-72 focus:outline-none focus:border-brand-pink">
+                    </div>
+
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-left text-sm text-gray-600">
+                            <thead class="bg-brand-rose/40 text-xs font-bold uppercase text-brand-brown">
+                                <tr>
+                                    <th class="p-3 rounded-l-xl">Pedido</th>
+                                    <th class="p-3">Cliente</th>
+                                    <th class="p-3">Subtotal</th>
+                                    <th class="p-3">Total</th>
+                                    <th class="p-3">Seña / Abonado</th>
+                                    <th class="p-3">Saldo Pendiente</th>
+                                    <th class="p-3 rounded-r-xl">Estado Pago</th>
+                                </tr>
+                            </thead>
+                            <tbody id="payments-table-body" class="divide-y divide-rose-50">
+                                <tr>
+                                    <td class="p-3 font-bold text-brand-brown">#ORD-1024</td>
+                                    <td class="p-3">María Laura</td>
+                                    <td class="p-3 text-xs">$31.405</td>
+                                    <td class="p-3 font-bold">$38.000</td>
+                                    <td class="p-3 text-emerald-600 font-semibold">$19.000 (50%)</td>
+                                    <td class="p-3 text-amber-600 font-bold">$19.000</td>
+                                    <td class="p-3"><span class="px-2.5 py-1 bg-amber-100 text-amber-800 rounded-full text-xs font-semibold">Parcial / Seña</span></td>
+                                </tr>
+                                <tr>
+                                    <td class="p-3 font-bold text-brand-brown">#ORD-1025</td>
+                                    <td class="p-3">Carlos Pérez</td>
+                                    <td class="p-3 text-xs">$7.851</td>
+                                    <td class="p-3 font-bold">$9.500</td>
+                                    <td class="p-3 text-emerald-600 font-semibold">$9.500 (100%)</td>
+                                    <td class="p-3 text-emerald-600 font-bold">$0</td>
+                                    <td class="p-3"><span class="px-2.5 py-1 bg-emerald-100 text-emerald-800 rounded-full text-xs font-semibold">Totalmente Pagado</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 7. MÓDULO REPORTES (SOLICITUD F: Reportes a Medida y Exportación .XLS / .PDF / Email) -->
+            <section id="tab-reportes" class="tab-content hidden space-y-6">
+                <div class="bg-white p-6 rounded-2xl border border-rose-100 shadow-sm space-y-6">
+                    <div>
+                        <h3 class="font-serif font-bold text-lg text-brand-brown mb-1">Generador de Reportes a Medida</h3>
+                        <p class="text-xs text-gray-500">Filtra información de cualquier módulo y exporta los datos.</p>
+                    </div>
+
+                    <!-- Filtros de Reporte -->
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                        <div>
+                            <label class="block text-xs font-bold uppercase text-gray-600 mb-1">Módulo Objetivo</label>
+                            <select id="report-module" class="w-full px-3 py-2 rounded-xl border border-gray-200 text-xs">
+                                <option value="ventas">Ventas y Facturación</option>
+                                <option value="pedidos">Pedidos y Entregas</option>
+                                <option value="clientes">Directorio de Clientes</option>
+                                <option value="pagos">Señas y Saldos Pendientes</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold uppercase text-gray-600 mb-1">Rango de Fechas</label>
+                            <input type="date" id="report-date" class="w-full px-3 py-2 rounded-xl border border-gray-200 text-xs">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold uppercase text-gray-600 mb-1">Sucursal</label>
+                            <select id="report-branch" class="w-full px-3 py-2 rounded-xl border border-gray-200 text-xs">
+                                <option value="todas">Todas las Sucursales</option>
+                                <option value="centro">Neuquén Centro</option>
+                                <option value="este">Neuquén Este</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Botones de Exportación -->
+                    <div class="flex flex-wrap gap-3 pt-4 border-t border-rose-100">
+                        <button onclick="exportReport('XLS')" class="px-4 py-2.5 bg-emerald-600 text-white font-bold text-xs rounded-xl hover:bg-emerald-700 transition-all flex items-center gap-2">
+                            <i class="fa-solid fa-file-excel"></i> Exportar a .XLS
+                        </button>
+                        <button onclick="exportReport('PDF')" class="px-4 py-2.5 bg-rose-600 text-white font-bold text-xs rounded-xl hover:bg-rose-700 transition-all flex items-center gap-2">
+                            <i class="fa-solid fa-file-pdf"></i> Exportar a .PDF
+                        </button>
+                        <button onclick="exportReport('EMAIL')" class="px-4 py-2.5 bg-brand-brown text-white font-bold text-xs rounded-xl hover:bg-black transition-all flex items-center gap-2">
+                            <i class="fa-solid fa-envelope"></i> Enviar por Email
+                        </button>
+                    </div>
+
+                    <div class="h-40 bg-brand-rose/20 rounded-xl flex items-center justify-center border border-dashed border-brand-pink text-brand-accent font-semibold text-xs">
+                        <i class="fa-solid fa-chart-line mr-2"></i> Vista Previa del Reporte Personalizado
+                    </div>
+                </div>
+            </section>
+
+            <!-- 8. MÓDULO INTEGRACIONES (SOLICITUD G: Mercado Pago, Pasarelas Bancarias, Facebook y Shopify) -->
+            <section id="tab-integraciones" class="tab-content hidden space-y-6">
+                <div class="bg-white p-6 rounded-2xl border border-rose-100 shadow-sm space-y-6">
+                    <div>
+                        <h3 class="font-serif font-bold text-lg text-brand-brown">Centro de Integraciones Ampliado v2.1</h3>
+                        <p class="text-xs text-gray-500">Conexiones a pasarelas de pago, redes sociales y plataformas de e-commerce</p>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <!-- WhatsApp API -->
+                        <div class="p-5 rounded-2xl border border-emerald-100 bg-emerald-50/40 flex items-start justify-between">
+                            <div class="space-y-2">
+                                <div class="flex items-center gap-2">
+                                    <i class="fa-brands fa-whatsapp text-2xl text-emerald-600"></i>
+                                    <h4 class="font-bold text-brand-brown">WhatsApp Business API</h4>
+                                </div>
+                                <p class="text-xs text-gray-600">Número: +54 9 299 XXX-XXXX</p>
+                                <span class="inline-block px-2.5 py-0.5 bg-emerald-200 text-emerald-800 rounded-full text-xs font-bold">Bot Activo</span>
+                            </div>
+                            <button onclick="configureIntegration('WhatsApp')" class="px-3 py-1.5 bg-white border border-emerald-200 text-emerald-700 rounded-xl text-xs font-bold hover:bg-emerald-100">
+                                Configurar
+                            </button>
+                        </div>
+
+                        <!-- Instagram Meta API -->
+                        <div class="p-5 rounded-2xl border border-pink-100 bg-pink-50/40 flex items-start justify-between">
+                            <div class="space-y-2">
+                                <div class="flex items-center gap-2">
+                                    <i class="fa-brands fa-instagram text-2xl text-pink-600"></i>
+                                    <h4 class="font-bold text-brand-brown">Instagram Messaging</h4>
+                                </div>
+                                <p class="text-xs text-gray-600">Cuenta: @biscottidiangie</p>
+                                <span class="inline-block px-2.5 py-0.5 bg-pink-200 text-pink-800 rounded-full text-xs font-bold">Conectado</span>
+                            </div>
+                            <button onclick="configureIntegration('Instagram')" class="px-3 py-1.5 bg-white border border-pink-200 text-pink-700 rounded-xl text-xs font-bold hover:bg-pink-100">
+                                Configurar
+                            </button>
+                        </div>
+
+                        <!-- Mercado Pago -->
+                        <div class="p-5 rounded-2xl border border-blue-100 bg-blue-50/40 flex items-start justify-between">
+                            <div class="space-y-2">
+                                <div class="flex items-center gap-2">
+                                    <i class="fa-solid fa-hand-holding-dollar text-2xl text-blue-500"></i>
+                                    <h4 class="font-bold text-brand-brown">Mercado Pago / Cobros QR</h4>
+                                </div>
+                                <p class="text-xs text-gray-600">Pasarela de cobro y links instantáneos</p>
+                                <span class="inline-block px-2.5 py-0.5 bg-blue-200 text-blue-800 rounded-full text-xs font-bold">Activo</span>
+                            </div>
+                            <button onclick="configureIntegration('Mercado Pago')" class="px-3 py-1.5 bg-white border border-blue-200 text-blue-700 rounded-xl text-xs font-bold hover:bg-blue-100">
+                                Configurar
+                            </button>
+                        </div>
+
+                        <!-- Pasarelas Bancarias -->
+                        <div class="p-5 rounded-2xl border border-amber-100 bg-amber-50/40 flex items-start justify-between">
+                            <div class="space-y-2">
+                                <div class="flex items-center gap-2">
+                                    <i class="fa-solid fa-building-columns text-2xl text-amber-600"></i>
+                                    <h4 class="font-bold text-brand-brown">Interfaces Bancarias (CBU / Alias)</h4>
+                                </div>
+                                <p class="text-xs text-gray-600">Validación de transferencias directas</p>
+                                <span class="inline-block px-2.5 py-0.5 bg-amber-200 text-amber-800 rounded-full text-xs font-bold">Configurado</span>
+                            </div>
+                            <button onclick="configureIntegration('Pasarelas Bancarias')" class="px-3 py-1.5 bg-white border border-amber-200 text-amber-700 rounded-xl text-xs font-bold hover:bg-amber-100">
+                                Configurar
+                            </button>
+                        </div>
+
+                        <!-- Facebook Marketplace -->
+                        <div class="p-5 rounded-2xl border border-indigo-100 bg-indigo-50/40 flex items-start justify-between">
+                            <div class="space-y-2">
+                                <div class="flex items-center gap-2">
+                                    <i class="fa-brands fa-facebook text-2xl text-indigo-600"></i>
+                                    <h4 class="font-bold text-brand-brown">Facebook Marketplace</h4>
+                                </div>
+                                <p class="text-xs text-gray-600">Sincronización de productos en Facebook</p>
+                                <span class="inline-block px-2.5 py-0.5 bg-gray-200 text-gray-700 rounded-full text-xs font-bold">Desconectado</span>
+                            </div>
+                            <button onclick="configureIntegration('Facebook Marketplace')" class="px-3 py-1.5 bg-white border border-indigo-200 text-indigo-700 rounded-xl text-xs font-bold hover:bg-indigo-100">
+                                Conectar
+                            </button>
+                        </div>
+
+                        <!-- Shopify Sync -->
+                        <div class="p-5 rounded-2xl border border-emerald-100 bg-emerald-50/40 flex items-start justify-between">
+                            <div class="space-y-2">
+                                <div class="flex items-center gap-2">
+                                    <i class="fa-solid fa-bag-shopping text-2xl text-emerald-700"></i>
+                                    <h4 class="font-bold text-brand-brown">Shopify Sync</h4>
+                                </div>
+                                <p class="text-xs text-gray-600">Integración de inventario omnicanal</p>
+                                <span class="inline-block px-2.5 py-0.5 bg-gray-200 text-gray-700 rounded-full text-xs font-bold">Disponible</span>
+                            </div>
+                            <button onclick="configureIntegration('Shopify')" class="px-3 py-1.5 bg-white border border-emerald-200 text-emerald-700 rounded-xl text-xs font-bold hover:bg-emerald-100">
+                                Conectar
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+        </main>
+    </div>
+
+    <!-- LOGICA DE JS DEL DASHBOARD BASE ENRIQUECIDA -->
+    <script>
+        const STORAGE_KEY = 'biscotti_products';
+        const CLIENTS_KEY = 'biscotti_clients';
+
+        // Seed Data Inicial
+        const seedProducts = [
+            {
+                id: 1,
+                title: "Torta Red Velvet Clásica",
+                category: "Tortas",
+                price: 38000,
+                desc: "Bizcochuelo tradicional aterciopelado con suave relleno de frosting de queso crema.",
+                img: "1.2_assets/v1.2_images/Foto Tiramisou.jpg",
+                mediaType: "image",
+                active: true
+            },
+            {
+                id: 2,
+                title: "Cookies Choco Chips (x6)",
+                category: "Cookies",
+                price: 9500,
+                desc: "Galletas artesanales crujientes por fuera y suaves por dentro.",
+                img: "1.2_assets/v1.2_images/Foto Cookies.jpg",
+                mediaType: "image",
+                active: true
+            },
+            {
+                id: 3,
+                title: "Alfajores de Maizena Tradicionales",
+                category: "Alfajores",
+                price: 11000,
+                desc: "Caja x6 alfajores suavemente horneados rellenos con dulce de leche repostero.",
+                img: "1.2_assets/v1.2_images/Foto Alfajores con Maizena.jpg",
+                mediaType: "image",
+                active: true
+            }
+        ];
+
+        const seedClients = [
+            { name: "María Laura", phone: "+54 9 299 4123456", email: "marialaura@gmail.com", ig: "@marialaura_nqn", obs: "Prefiere tortas sin nuez." },
+            { name: "Carlos Pérez", phone: "+54 9 299 5987654", email: "cperez@yahoo.com", ig: "@carlosp_nqn", obs: "Cliente corporativo." }
+        ];
+
+        let products = [];
+        let clients = [];
+        let currentMediaBase64 = '';
+        let selectedMediaType = 'image';
+        let posCart = [];
+
+        // Inicializar Dashboard al Cargar
+        window.onload = function () {
+            loadProducts();
+            loadClients();
+            renderProductsTable();
+            renderPosProducts();
+            renderClientsDirectory();
+        };
+
+        // Cambiar pestañas SPA
+        function switchTab(tabId) {
+            document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
+            document.querySelectorAll('.sidebar-item').forEach(el => el.classList.remove('active'));
+
+            document.getElementById(`tab-${tabId}`).classList.remove('hidden');
+            document.getElementById(`nav-${tabId}`).classList.add('active');
+
+            const titles = {
+                'inicio': 'Inicio y Métricas del Día',
+                'productos': 'Gestión de Productos y Catálogo',
+                'pos': 'Punto de Venta / Mostrador',
+                'pedidos': 'Control de Pedidos y Encargos',
+                'clientes': 'Directorio de Clientes',
+                'pagos': 'Gestión de Pagos y Señas',
+                'reportes': 'Reportes y Analítica',
+                'integraciones': 'Centro de Integraciones Ampliado'
+            };
+            document.getElementById('page-title').innerText = titles[tabId] || 'Dashboard Admin';
+        }
+
+        // Cargar productos desde localStorage
+        function loadProducts() {
+            const stored = localStorage.getItem(STORAGE_KEY);
+            if (stored) {
+                try { products = JSON.parse(stored); } catch (e) { products = seedProducts; }
+            } else {
+                products = seedProducts;
+                saveProductsToStorage();
+            }
+            document.getElementById('total-products-count').innerText = products.length;
+        }
+
+        function saveProductsToStorage() {
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(products));
+            document.getElementById('total-products-count').innerText = products.length;
+        }
+
+        // Cargar Clientes
+        function loadClients() {
+            const stored = localStorage.getItem(CLIENTS_KEY);
+            if (stored) {
+                try { clients = JSON.parse(stored); } catch (e) { clients = seedClients; }
+            } else {
+                clients = seedClients;
+                localStorage.setItem(CLIENTS_KEY, JSON.stringify(clients));
+            }
+        }
+
+        // Tipo de Archivo Aceptado (Imagen / Video)
+        function updateAcceptType() {
+            const radios = document.getElementsByName('media-type');
+            for (let r of radios) {
+                if (r.checked) selectedMediaType = r.value;
+            }
+            const input = document.getElementById('prod-image');
+            input.accept = selectedMediaType === 'video' ? 'video/mp4,video/webm' : 'image/*';
+            document.getElementById('media-preview-container').classList.add('hidden');
+            currentMediaBase64 = '';
+        }
+
+        // Preview de Imagen o Video
+        function previewMedia(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                    currentMediaBase64 = e.target.result;
+                    const container = document.getElementById('media-preview-container');
+                    const imgPreview = document.getElementById('image-preview');
+                    const vidPreview = document.getElementById('video-preview');
+
+                    container.classList.remove('hidden');
+                    if (selectedMediaType === 'video') {
+                        imgPreview.classList.add('hidden');
+                        vidPreview.src = currentMediaBase64;
+                        vidPreview.classList.remove('hidden');
+                    } else {
+                        vidPreview.classList.add('hidden');
+                        imgPreview.src = currentMediaBase64;
+                        imgPreview.classList.remove('hidden');
+                    }
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+
+        // Formulario Submit Producto
+        function handleProductSubmit(event) {
+            event.preventDefault();
+            console.log("Intentando guardar producto...");
+
+            const nameInput = document.getElementById('prod-name');
+            const categoryInput = document.getElementById('prod-category');
+            const priceInput = document.getElementById('prod-price');
+            const descInput = document.getElementById('prod-desc');
+
+            if (!nameInput || !categoryInput || !priceInput) {
+                alert('Error crítico: No se encuentran los campos del formulario.');
+                return;
+            }
+
+            const name = nameInput.value;
+            const category = categoryInput.value;
+            const price = parseFloat(priceInput.value);
+            const desc = descInput ? descInput.value : '';
+
+            if (!currentMediaBase64) {
+                alert('Por favor selecciona un archivo de foto o video para el producto.');
+                return;
+            }
+            // Si es video, capturamos el archivo real seleccionado sin saturar el localStorage
+            let mediaData = currentMediaBase64;
+            if (selectedMediaType === 'video') {
+                const fileInput = document.getElementById('prod-image'); // O el ID de tu input de archivo
+                if (fileInput && fileInput.files && fileInput.files[0]) {
+                    // Crea una ruta de objeto local para el video seleccionado
+                    mediaData = "1.2_assets/v1.2_video/" + fileInput.files[0].name;
+                } else {
+                    mediaData = "1.2_assets/v1.2_video/video2.mp4"; // Valor por defecto si no hay archivo nuevo
+                }
+            }
+
+            const newProd = {
+                id: Date.now(),
+                title: name,
+                category: category,
+                price: price,
+                desc: desc || "Especialidad de la casa.",
+                img: mediaData,
+                mediaType: selectedMediaType,
+                active: true
+            };
+            if (!products) products = [];
+            
+            products.unshift(newProd);
+            saveProductsToStorage();
+            
+            renderProductsTable();
+            renderPosProducts();
+
+            // Limpiar formulario
+            document.getElementById('product-form').reset();
+            const previewContainer = document.getElementById('media-preview-container');
+            if (previewContainer) previewContainer.classList.add('hidden');
+            currentMediaBase64 = '';
+
+            alert('¡Producto / Recurso guardado con éxito en el catálogo!');
+        }
+        // Función para procesar la carga masiva de productos (CSV / TXT)
+        function processBulkUpload() {
+        const fileInput = document.getElementById('bulk-file-input');
+        if (!fileInput || !fileInput.files || fileInput.files.length === 0) {
+        alert('Por favor selecciona un archivo CSV o TXT para importar.');
+        return;
+        }
+
+        const file = fileInput.files[0];
+        const reader = new FileReader();
+
+        reader.onload = function(e) {
+        const text = e.target.result;
+        const lines = text.split('\n');
+        let importedCount = 0;
+
+        if (!products) products = [];
+
+        lines.forEach((line, index) => {
+            // Ignorar líneas vacías
+            if (!line.trim()) return;
+
+            // Suponiendo formato separado por comas: Nombre, Categoría, Precio, Descripción, TipoMultimedia, Ruta
+            const cols = line.split(',').map(col => col.trim());
+            if (cols.length >= 4) {
+                const newProd = {
+                    id: Date.now() + index,
+                    title: cols[0],
+                    category: cols[1],
+                    price: parseFloat(cols[2]) || 0,
+                    desc: cols[3] || "Especialidad de la casa.",
+                    mediaType: cols[4] || 'imagen',
+                    img: cols[5] || "1.2_assets/v1.2_images/default.jpg",
+                    active: true
+                };
+                products.unshift(newProd);
+                importedCount++;
+            }
+         });
+
+            saveProductsToStorage();
+            renderProductsTable();
+            renderPosProducts();
+            alert(`¡Se importaron ${importedCount} productos exitosamente al catálogo!`);
+            fileInput.value = ''; // Limpiar input
+            };
+
+            reader.readAsText(file);
+         }
+
+        // Renderizar Tabla de Productos
+        function renderProductsTable() {
+            const tbody = document.getElementById('products-table-body');
+            tbody.innerHTML = '';
+
+            if (products.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="6" class="text-center py-6 text-gray-400">No hay productos en el catálogo.</td></tr>`;
+                return;
+            }
+
+            products.forEach(p => {
+                const tr = document.createElement('tr');
+                tr.className = 'hover:bg-brand-rose/20 transition-all';
+                
+                const mediaTag = p.mediaType === 'video'
+                    ? `<video src="${p.img}" class="w-12 h-12 rounded-xl object-cover border border-rose-100" muted loop autoplay></video>`
+                    : `<img src="${p.img}" alt="${p.title}" class="w-12 h-12 rounded-xl object-cover border border-rose-100">`;
+
+                tr.innerHTML = `
+                    <td class="p-3">${mediaTag}</td>
+                    <td class="p-3 font-bold text-brand-brown">${p.title}</td>
+                    <td class="p-3 text-xs"><span class="bg-brand-rose text-brand-accent px-2 py-1 rounded-full font-semibold">${p.category}</span></td>
+                    <td class="p-3 font-bold text-gray-700">$${p.price.toLocaleString()}</td>
+                    <td class="p-3">
+                        <span class="px-2.5 py-1 rounded-full text-xs font-semibold ${p.active ? 'bg-emerald-100 text-emerald-800' : 'bg-gray-100 text-gray-600'}">
+                            ${p.active ? 'Activo' : 'Inactivo'}
+                        </span>
+                    </td>
+                    <td class="p-3 text-right space-x-1">
+                        <button onclick="toggleProductState(${p.id})" class="px-2.5 py-1.5 text-xs bg-gray-100 hover:bg-gray-200 text-gray-700 font-bold rounded-lg">
+                            ${p.active ? 'Desactivar' : 'Activar'}
+                        </button>
+                        <button onclick="deleteProduct(${p.id})" class="px-2.5 py-1.5 text-xs bg-rose-100 hover:bg-rose-200 text-rose-700 font-bold rounded-lg">
+                            Eliminar
+                        </button>
+                    </td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+
+        function toggleProductState(id) {
+            products = products.map(p => p.id === id ? { ...p, active: !p.active } : p);
+            saveProductsToStorage();
+            renderProductsTable();
+            renderPosProducts();
+        }
+
+        function deleteProduct(id) {
+            if (confirm('¿Estás seguro de eliminar este producto?')) {
+                products = products.filter(p => p.id !== id);
+                saveProductsToStorage();
+                renderProductsTable();
+                renderPosProducts();
+            }
+        }
+
+        function resetToSeedData() {
+            if (confirm('¿Restaurar los productos por defecto?')) {
+                products = seedProducts;
+                saveProductsToStorage();
+                renderProductsTable();
+                renderPosProducts();
+            }
+        }
+
+        // Render POS
+        function renderPosProducts() {
+            const grid = document.getElementById('pos-products-grid');
+            grid.innerHTML = '';
+
+            const activeProds = products.filter(p => p.active);
+               activeProds.forEach(p => {
+            const card = document.createElement('div');
+            card.className = 'p-3 rounded-xl border border-rose-100 bg-white hover:border-brand-pink cursor-pointer transition-all flex flex-col justify-between';
+            card.onclick = () => addToPosCart(p);
+
+        // Validar si el recurso es un video o una imagen para el POS
+        const mediaTag = p.mediaType === 'video'
+            ? `<video src="${p.img}" class="w-full h-24 object-cover rounded-lg mb-2" muted loop autoplay></video>`
+            : `<img src="${p.img}" alt="${p.title}" class="w-full h-24 object-cover rounded-lg mb-2">`;
+
+        card.innerHTML = `
+            ${mediaTag}
+            <p class="font-bold text-xs text-brand-brown line-clamp-1">${p.title}</p>
+            <p class="text-xs text-brand-pink font-bold mt-1">$${p.price.toLocaleString()}</p>
+        `;
+        grid.appendChild(card);
+    });
+}
+
+        function addToPosCart(prod) {
+            const existing = posCart.find(item => item.id === prod.id);
+            if (existing) { existing.qty++; } else { posCart.push({ ...prod, qty: 1 }); }
+            renderPosCart();
+        }
+
+        function renderPosCart() {
+            const container = document.getElementById('pos-cart-items');
+            container.innerHTML = '';
+
+            if (posCart.length === 0) {
+                container.innerHTML = `<p class="text-xs text-gray-400 text-center py-6">Selecciona productos para agregar a la venta.</p>`;
+                document.getElementById('pos-total-price').innerText = '$0';
+                return;
+            }
+
+            let total = 0;
+            posCart.forEach(item => {
+                const subtotal = item.price * item.qty;
+                total += subtotal;
+
+                const div = document.createElement('div');
+                div.className = 'flex items-center justify-between text-xs p-2 rounded-lg bg-brand-rose/30';
+                div.innerHTML = `
+                    <div class="truncate max-w-[120px]">
+                        <p class="font-bold text-brand-brown">${item.title}</p>
+                        <p class="text-gray-400">$${item.price.toLocaleString()} c/u</p>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <span class="font-bold">x${item.qty}</span>
+                        <span class="font-bold text-brand-pink">$${subtotal.toLocaleString()}</span>
+                    </div>
+                `;
+                container.appendChild(div);
+            });
+
+            document.getElementById('pos-total-price').innerText = `$${total.toLocaleString()}`;
+        }
+
+        // 1. Crear nuevo POS sincronizado en ambos selectores
+        function createNewPos() {
+            const posName = prompt('Ingrese el nombre de la nueva Caja / Punto de Venta (ej: POS 5 - Local Norte):');
+            if (!posName) return;
+
+            // Agregar al selector del módulo POS
+            const posSelect = document.getElementById('pos-branch-select');
+            if (posSelect) {
+                const optPos = document.createElement('option');
+                optPos.value = posName;
+                optPos.innerText = posName;
+                optPos.selected = true;
+                posSelect.appendChild(optPos);
+            }
+
+            // Agregar al selector del módulo Inicio / Resumen
+            const branchSelect = document.getElementById('branch-select');
+            if (branchSelect) {
+                const optBranch = document.createElement('option');
+                optBranch.value = posName;
+                optBranch.innerText = posName;
+                branchSelect.appendChild(optBranch);
+            }
+
+            alert(`¡Punto de Venta "${posName}" creado y sincronizado con éxito en todo el sistema!`);
+        }
+
+        // 2. Gestionar, exportar ventas y eliminar un POS
+        function manageOrDeletePos() {
+            const posSelect = document.getElementById('pos-branch-select');
+            if (!posSelect) return;
+
+            // Obtener lista de POS disponibles en el selector
+            let optionsList = Array.from(posSelect.options).map(opt => opt.value);
+            
+            let posToDelete = prompt("Ingrese el nombre exacto del POS que desea eliminar:\n\nDisponibles:\n- " + optionsList.join("\n- "));
+            if (!posToDelete || !optionsList.includes(posToDelete)) {
+                if (posToDelete) alert("No se encontró un POS con ese nombre exacto.");
+                return;
+            }
+
+            // Verificar si hay ventas guardadas para este POS
+            let sales = [];
+            const storedSales = localStorage.getItem('biscotti_sales');
+            if (storedSales) {
+                try { sales = JSON.parse(storedSales); } catch(e) { sales = []; }
+            }
+
+            const posSales = sales.filter(s => s.pos === posToDelete);
+
+            if (posSales.length > 0) {
+                const exportar = confirm(`Se encontraron ${posSales.length} ventas registradas en "${posToDelete}".\n\n¿Desea descargar un archivo de reporte (.csv) con las ventas de este POS antes de eliminarlo?`);
+                if (exportar) {
+                    exportPosSalesToCSV(posToDelete, posSales);
+                }
+            } else {
+                alert(`No hay ventas registradas en "${posToDelete}".`);
+            }
+
+            const confirmarBorrado = confirm(`¿Confirma que desea eliminar el "${posToDelete}" del sistema?`);
+            if (!confirmarBorrado) return;
+
+            // Remover de ambos selectores
+            removeOptionFromSelect('pos-branch-select', posToDelete);
+            removeOptionFromSelect('branch-select', posToDelete);
+
+            alert(`El POS "${posToDelete}" ha sido eliminado correctamente del sistema.`);
+        }
+
+        // Función auxiliar para quitar opción del select
+        function removeOptionFromSelect(selectId, valueToRemove) {
+            const select = document.getElementById(selectId);
+            if (!select) return;
+            for (let i = 0; i < select.options.length; i++) {
+                if (select.options[i].value === valueToRemove) {
+                    select.remove(i);
+                    break;
+                }
+            }
+        }
+
+        // Función para exportar las ventas del POS a un archivo CSV (compatible con Excel)
+        function exportPosSalesToCSV(posName, salesArray) {
+            let csvContent = "data:text/csv;charset=utf-8,ID Venta,Fecha,Canal Origen,Total (ARS)\n";
+            salesArray.forEach(sale => {
+                let row = [sale.id, sale.date, sale.origin, sale.total].join(",");
+                csvContent += row + "\r\n";
+            });
+
+            const encodedUri = encodeURI(csvContent);
+            const link = document.createElement("a");
+            link.setAttribute("href", encodedUri);
+            link.setAttribute("download", `Reporte_Ventas_${posName.replace(/\s+/g, '_')}.csv`);
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
+
+        function processPosSale() {
+            if (posCart.length === 0) { alert('El carrito POS está vacío.'); return; }
+            const origin = document.getElementById('pos-origin-channel').value;
+            
+            // Capturar la caja POS activa seleccionada en el módulo de Punto de Venta
+            const posSelect = document.getElementById('pos-branch-select');
+            const activePosName = posSelect ? posSelect.options[posSelect.selectedIndex].text : 'POS 1 - Mostrador Centro';
+            
+            const totalAmount = posCart.reduce((sum, item) => sum + (item.price * item.qty), 0);
+            
+            // Crear el objeto de la venta con su respectivo POS
+            const newSale = {
+                id: Date.now(),
+                date: new Date().toISOString(),
+                items: [...posCart],
+                total: totalAmount,
+                origin: origin,
+                pos: activePosName
+            };
+
+            // Guardar en localStorage ('biscotti_sales')
+            let sales = [];
+            const storedSales = localStorage.getItem('biscotti_sales');
+            if (storedSales) {
+                try { sales = JSON.parse(storedSales); } catch(e) { sales = []; }
+            }
+            sales.unshift(newSale);
+            localStorage.setItem('biscotti_sales', JSON.stringify(sales));
+
+            alert(`¡Venta registrada con éxito en ${activePosName} por $${totalAmount.toLocaleString()}!`);
+            posCart = [];
+            renderPosCart();
+            
+            // Refrescar las métricas del dashboard automáticamente
+            updateDashboardMetrics();
+        }
+
+        // Cambio Manual de Estado de Pedido
+        function updateOrderStatusManual(orderId, newStatus) {
+            const statusCell = document.getElementById(`status-${orderId}`);
+            const colors = {
+                'Pendiente': 'bg-gray-100 text-gray-800',
+                'Confirmado': 'bg-blue-100 text-blue-800',
+                'En preparación': 'bg-amber-100 text-amber-800',
+                'Listo para entrega': 'bg-purple-100 text-purple-800',
+                'Entregado': 'bg-emerald-100 text-emerald-800',
+                'Cancelado': 'bg-rose-100 text-rose-800'
+            };
+            if (statusCell) {
+                statusCell.innerHTML = `<span class="px-2.5 py-1 ${colors[newStatus] || 'bg-gray-100'} rounded-full text-xs font-semibold">${newStatus}</span>`;
+            }
+            alert(`El pedido #${orderId} cambió manualmente a estado: ${newStatus}`);
+        }
+
+        // submit Nuevo Cliente
+        function handleClientSubmit(event) {
+            event.preventDefault();
+            const name = document.getElementById('cli-name').value;
+            const phone = document.getElementById('cli-phone').value;
+            const email = document.getElementById('cli-email').value;
+            const ig = document.getElementById('cli-ig').value;
+            const obs = document.getElementById('cli-obs').value;
+
+            clients.unshift({ name, phone, email, ig, obs });
+            localStorage.setItem(CLIENTS_KEY, JSON.stringify(clients));
+            renderClientsDirectory();
+
+            document.getElementById('client-form').reset();
+            alert('¡Cliente registrado correctamente!');
+        }
+
+        function renderClientsDirectory() {
+            const grid = document.getElementById('clients-directory-grid');
+            if (!grid) return;
+            grid.innerHTML = '';
+
+            clients.forEach(c => {
+                const div = document.createElement('div');
+                div.className = 'p-4 rounded-xl border border-rose-100 bg-brand-cream space-y-1.5';
+                div.innerHTML = `
+                    <div class="flex items-center justify-between">
+                        <h4 class="font-bold text-sm text-brand-brown">${c.name}</h4>
+                        <span class="text-[10px] bg-brand-rose text-brand-accent font-bold px-2 py-0.5 rounded-full">Cliente</span>
+                    </div>
+                    <p class="text-xs text-gray-500"><i class="fa-solid fa-phone mr-1 text-emerald-600"></i> ${c.phone || 'Sin Teléfono'}</p>
+                    <p class="text-xs text-gray-500"><i class="fa-solid fa-envelope mr-1 text-blue-500"></i> ${c.email || 'Sin Email'} | <i class="fa-brands fa-instagram text-pink-500"></i> ${c.ig || 'Sin IG'}</p>
+                    <p class="text-xs text-gray-400 italic mt-1">${c.obs || ''}</p>
+                `;
+                grid.appendChild(div);
+            });
+        }
+
+        // Filtro Pagos
+        function filterPayments() {
+            const query = document.getElementById('payments-search').value.toLowerCase();
+            const rows = document.querySelectorAll('#payments-table-body tr');
+            rows.forEach(row => {
+                const text = row.innerText.toLowerCase();
+                row.style.display = text.includes(query) ? '' : 'none';
+            });
+        }
+
+        // Exportar Reportes
+        function exportReport(type) {
+            const moduleName = document.getElementById('report-module').value;
+            alert(`Generando reporte de [${moduleName.toUpperCase()}] en formato ${type}... ¡Completado!`);
+        }
+
+        // Configurar Integraciones
+        function configureIntegration(name) {
+            alert(`Abriendo panel de configuración para la integración: ${name}`);
+        }
+    </script>
+   <script>
+    // Función para manejar el filtrado por Sucursal o POS en el Dashboard
+    function filterDashboardData() {
+        updateDashboardMetrics();
+    }
+
+    function updateDashboardMetrics() {
+        const selectElement = document.getElementById('branch-select');
+        const selectedValue = selectElement ? selectElement.value : 'all';
+
+        // Obtener ventas guardadas desde localStorage
+        let sales = [];
+        const storedSales = localStorage.getItem('biscotti_sales');
+        if (storedSales) {
+            try { sales = JSON.parse(storedSales); } catch(e) { sales = []; }
+        }
+
+        // Filtrar ventas según la opción seleccionada en el desplegable
+        const filteredSales = (selectedValue === 'all' || selectedValue === 'todas')
+            ? sales 
+            : sales.filter(s => s.pos === selectedValue || s.pos.includes(selectedValue));
+
+        // Calcular la suma total de las ventas filtradas
+        const totalSalesToday = filteredSales.reduce((sum, s) => sum + s.total, 0);
+
+        // Actualizar el valor en la tarjeta KPI de "VENTAS DE HOY"
+        const salesKpiElement = document.querySelector('#tab-inicio .grid > div:nth-child(1) h3');
+        if (salesKpiElement) {
+            // Si hay ventas filtradas se muestra el total real, de lo contrario muestra base o $148.500 de prueba
+            salesKpiElement.innerText = filteredSales.length > 0 ? `$${totalSalesToday.toLocaleString()}` : '$0';
+        }
+    }
+
+    // Ejecutar la actualización al cargar la página para reflejar datos previos
+    document.addEventListener('DOMContentLoaded', () => {
+        updateDashboardMetrics();
+    });
+</script>
+</body>
+</html>
